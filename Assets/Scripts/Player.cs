@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D rigid;
     private Vector3 moveDir;
+    private float horizontal;
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;
     [SerializeField] float moveSpeed = 0.5f;
@@ -17,15 +18,11 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
-    private void OnDrawGizmos()
-    {
-        if (boxCollider2d != null)
-        {
-            Gizmos.color = Color.red;
-            Vector3 pos = boxCollider2d.bounds.center - new Vector3(0.0f, 0.025f, 0.0f);
-            Gizmos.DrawWireCube(pos, boxCollider2d.bounds.size);
-        }
-    }
+    [SerializeField] GameObject objThrowBorn;
+    [SerializeField] Transform trsHead;
+    [SerializeField] Transform trsObjDynamic;
+
+    [SerializeField] BoxCollider2D boxCollider;
 
     // Start is called before the first frame update
     void Awake()
@@ -44,6 +41,8 @@ public class Player : MonoBehaviour
         Jumping();
         CheckGravity();
         SetAnimationParameter();
+
+        SkillA();
     }
 
     private void CheckGround()
@@ -66,7 +65,20 @@ public class Player : MonoBehaviour
 
     private void Moving()
     {
-        moveDir.x = Input.GetAxisRaw("Horizontal") * moveSpeed;
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            horizontal = -1.0f;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            horizontal = 1.0f;            
+        }
+        else
+        {
+            horizontal = 0.0f;
+        }
+
+        moveDir.x = horizontal * moveSpeed;
         moveDir.y = rigid.velocity.y;
         rigid.velocity = moveDir;
     }
@@ -122,5 +134,25 @@ public class Player : MonoBehaviour
         animator.SetInteger("Horizontal", (int)moveDir.x);
         animator.SetFloat("Vertical", verticalVelocity);
         animator.SetBool("IsGround", isGround);
+    }
+
+    private void SkillA()
+    {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            GameObject obj = Instantiate(objThrowBorn, trsHead.position, Quaternion.identity, trsObjDynamic);
+        }
+    }
+
+    private void StartAttack()
+    {
+        Debug.Log("Start");
+        boxCollider.enabled = true;
+    }
+
+    private void EndAttack()
+    {
+        Debug.Log("End");
+        boxCollider.enabled = false;
     }
 }
