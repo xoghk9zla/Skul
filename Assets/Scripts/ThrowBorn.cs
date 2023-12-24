@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class ThrowBorn : MonoBehaviour
 {
-    Rigidbody2D rigid;
-    [SerializeField] private float returnTime = 5.0f;
+    Rigidbody2D rigid;    
+
+    Vector2 force;
+    bool isRight;
+    private float cooldownTime;
 
     // Start is called before the first frame update
     void Start()
     {
+        Vector3 scale = transform.localScale;
+        scale.x = isRight ? -1.0f : 1.0f;
+        transform.localScale = scale;
+
         rigid = GetComponent<Rigidbody2D>();
-        rigid.AddForce(new Vector2(5.0f, 0.0f), ForceMode2D.Impulse);
-        rigid.AddTorque(-1.0f);
+        rigid.AddForce(force, ForceMode2D.Impulse);
+        rigid.AddTorque(isRight ? -1.0f : 1.0f);
     }
 
     // Update is called once per frame
@@ -23,19 +30,32 @@ public class ThrowBorn : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (rigid != null && collision.gameObject.layer != LayerMask.GetMask("Ground")) 
+        if (rigid != null && collision.gameObject.layer != LayerMask.NameToLayer("Ground")) 
         {
             rigid.gravityScale = 1.0f;
+        }
+
+        if (rigid != null && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Destroy(gameObject);
         }
     }
 
     private void SetTimer()
     {
-        returnTime -= Time.deltaTime;
+        cooldownTime -= Time.deltaTime;
 
-        if(returnTime <= 0.0f )
+        if(cooldownTime <= 0.0f )
         {
-            returnTime = 5.0f;            
+            Destroy(gameObject);
         }
     }
+
+    public void SkillSetting(Vector2 _force, bool _isRight, float _cooldownTime)
+    {
+        force = _force;
+        isRight = _isRight;
+        cooldownTime = _cooldownTime;
+    }
+
 }

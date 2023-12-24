@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;
     [SerializeField] float moveSpeed = 0.5f;
+    [SerializeField] int Hp = 150;
 
     private bool isJump = false;
     private float verticalVelocity;
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject objThrowBorn;
     [SerializeField] Transform trsHead;
     [SerializeField] Transform trsObjDynamic;
+    [SerializeField] float _cooldownTimeA = 6.0f;
+    [SerializeField] float _cooldownTimeB = 0.0f;
 
     [SerializeField] BoxCollider2D boxCollider;
 
@@ -138,9 +141,17 @@ public class Player : MonoBehaviour
 
     private void SkillA()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        int count = trsObjDynamic.childCount;
+
+        if (Input.GetKeyDown(KeyCode.A) && count == 0)
         {
             GameObject obj = Instantiate(objThrowBorn, trsHead.position, Quaternion.identity, trsObjDynamic);
+            ThrowBorn sc = obj.GetComponent<ThrowBorn>();
+
+            bool isRight = (transform.localScale.x == 1.0f);
+            Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
+
+            sc.SkillSetting(throwForce, isRight, _cooldownTimeA);
         }
     }
 
