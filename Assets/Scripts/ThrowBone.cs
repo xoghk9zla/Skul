@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowBorn : MonoBehaviour
+public class ThrowBone : MonoBehaviour
 {
-    Rigidbody2D rigid;    
+    Rigidbody2D rigid;
 
     Vector2 force;
     bool isRight;
@@ -30,7 +30,7 @@ public class ThrowBorn : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (rigid != null && collision.gameObject.layer != LayerMask.NameToLayer("Ground")) 
+        if (rigid != null && collision.gameObject.layer != LayerMask.NameToLayer("Ground"))
         {
             rigid.gravityScale = 1.0f;
         }
@@ -45,7 +45,7 @@ public class ThrowBorn : MonoBehaviour
     {
         cooldownTime -= Time.deltaTime;
 
-        if(cooldownTime <= 0.0f )
+        if (cooldownTime <= 0.0f)
         {
             Destroy(gameObject);
         }
@@ -57,5 +57,4 @@ public class ThrowBorn : MonoBehaviour
         isRight = _isRight;
         cooldownTime = _cooldownTime;
     }
-
 }

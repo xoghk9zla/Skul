@@ -10,7 +10,8 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;
     [SerializeField] float moveSpeed = 0.5f;
-    [SerializeField] int Hp = 150;
+    [SerializeField] int maxHp = 150;
+    [SerializeField] int curHp = 150;
 
     private bool isJump = false;
     private float verticalVelocity;
@@ -19,11 +20,12 @@ public class Player : MonoBehaviour
 
     private Animator animator;
 
-    [SerializeField] GameObject objThrowBorn;
+    [SerializeField] GameObject objThrowBone;
+    [SerializeField] GameObject objReboneEffect;
     [SerializeField] Transform trsHead;
     [SerializeField] Transform trsObjDynamic;
     [SerializeField] float _cooldownTimeA = 6.0f;
-    [SerializeField] float _cooldownTimeB = 0.0f;
+    [SerializeField] float _cooldownTimeS = 3.0f;
 
     [SerializeField] BoxCollider2D boxCollider;
 
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        curHp = maxHp;
     }
 
     // Update is called once per frame
@@ -46,6 +49,7 @@ public class Player : MonoBehaviour
         SetAnimationParameter();
 
         SkillA();
+        SkillS();
     }
 
     private void CheckGround()
@@ -104,7 +108,7 @@ public class Player : MonoBehaviour
 
     private void Jumping()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             isJump = true;
         }        
@@ -145,13 +149,35 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A) && count == 0)
         {
-            GameObject obj = Instantiate(objThrowBorn, trsHead.position, Quaternion.identity, trsObjDynamic);
-            ThrowBorn sc = obj.GetComponent<ThrowBorn>();
+            GameObject obj = Instantiate(objThrowBone, trsHead.position, Quaternion.identity, trsObjDynamic);
+            ThrowBone sc = obj.GetComponent<ThrowBone>();
 
             bool isRight = (transform.localScale.x == 1.0f);
             Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
 
             sc.SkillSetting(throwForce, isRight, _cooldownTimeA);
+
+            animator.SetBool("IsThrow", true);
+        }
+    }
+
+    private void SkillS()
+    {
+        int count = trsObjDynamic.childCount;
+
+        if (Input.GetKeyDown(KeyCode.S) && count != 0 && !animator.GetBool("IsRebone"))
+        {
+            Vector3 effectPos = transform.position;
+            GameObject obj = Instantiate(objReboneEffect, effectPos, Quaternion.identity, trsObjDynamic);
+            Transform trsThrowBorn = trsObjDynamic.GetChild(0);
+            Vector3 movePos = trsThrowBorn.position;
+
+            movePos.y += 0.05f;
+            transform.position = movePos;
+
+            animator.SetBool("IsRebone", true);
+            animator.SetBool("IsThrow", false);
+            transform.Find("RebornEffect").gameObject.SetActive(true);
         }
     }
 
@@ -165,5 +191,21 @@ public class Player : MonoBehaviour
     {
         Debug.Log("End");
         boxCollider.enabled = false;
+    }
+
+    private void EndThrow()
+    {
+        animator.SetBool("IsThrow", false);
+    }
+
+    private void EndReborn()
+    {
+        animator.SetBool("IsRebone", false);        
+        transform.Find("RebornEffect").gameObject.SetActive(false);
+
+        foreach(Transform child in trsObjDynamic)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

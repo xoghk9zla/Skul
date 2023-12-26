@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6557847584993164780}
   - component: {fileID: 1551539048573340644}
   - component: {fileID: 8134605579083296193}
-  - component: {fileID: 5485434773222941907}
+  - component: {fileID: 6329988269792041147}
   m_Layer: 0
-  m_Name: ThrowBorn
+  m_Name: ThrowBone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6557847584993164780
 SpriteRenderer:
@@ -175,7 +175,7 @@ PolygonCollider2D:
       - {x: 0.08524892, y: -0.02765932}
       - {x: 0.08524898, y: 0.04411344}
   m_UseDelaunayMesh: 0
---- !u!114 &5485434773222941907
+--- !u!114 &6329988269792041147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,7 +184,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6064725322055068616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 946fe2d965a30c7469dd6116c972909a, type: 3}
+  m_Script: {fileID: 11500000, guid: de274746f2016eb4f9253b7abacb38e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnTime: 5
