@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1551539048573340644}
   - component: {fileID: 8134605579083296193}
   - component: {fileID: 6329988269792041147}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ThrowBone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6557847584993164780
 SpriteRenderer:

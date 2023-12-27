@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
     private float horizontal;
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;
-    [SerializeField] float moveSpeed = 0.5f;
-    [SerializeField] int maxHp = 150;
-    [SerializeField] int curHp = 150;
+    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private float maxHp = 150.0f;
+    [SerializeField] private float curHp;
 
     private bool isJump = false;
     private float verticalVelocity;
@@ -24,10 +24,13 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject objReboneEffect;
     [SerializeField] Transform trsHead;
     [SerializeField] Transform trsObjDynamic;
-    [SerializeField] float _cooldownTimeA = 6.0f;
-    [SerializeField] float _cooldownTimeS = 3.0f;
+    [SerializeField] float cooldownTimeA = 6.0f;
+    [SerializeField] float cooldownTimeS = 3.0f;
 
     [SerializeField] BoxCollider2D boxCollider;
+
+    [SerializeField] PlayerHp playerHp;
+    [SerializeField] SkillManager skillManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,6 +38,8 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        playerHp = GetComponent<PlayerHp>();
+        skillManager = GetComponent<SkillManager>();
         curHp = maxHp;
     }
 
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour
             bool isRight = (transform.localScale.x == 1.0f);
             Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
 
-            sc.SkillSetting(throwForce, isRight, _cooldownTimeA);
+            sc.SkillSetting(throwForce, isRight, cooldownTimeA);
 
             animator.SetBool("IsThrow", true);
         }
@@ -178,7 +183,22 @@ public class Player : MonoBehaviour
             animator.SetBool("IsRebone", true);
             animator.SetBool("IsThrow", false);
             transform.Find("RebornEffect").gameObject.SetActive(true);
+
+            curHp -= 5.0f;
+            playerHp.SetPlayerHp(curHp, maxHp); // test
         }
+    }
+
+    public void SetPlayerHp(PlayerHp _value)
+    {
+        playerHp = _value;
+        playerHp.SetPlayerHp(curHp, maxHp);
+    }
+
+    public void SetSkill(SkillManager _value)
+    {
+        skillManager = _value;
+        skillManager.SetSkill(cooldownTimeA, cooldownTimeS);
     }
 
     private void StartAttack()
