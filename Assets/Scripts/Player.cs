@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private bool isAttack;
+    private bool isJumpAttack;
 
     [SerializeField] GameObject objThrowBone;
     [SerializeField] GameObject objReboneEffect;
@@ -217,6 +218,12 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("ComboAttack", true);
         }
+        else if (Input.GetKeyDown(KeyCode.X) && !isJumpAttack && !isGround)
+        {
+            isJumpAttack = true;
+            animator.SetBool("IsJumpAttack", true);
+        }
+
     }
 
     // 플레이어 상태 설정 관련 함수
@@ -243,8 +250,10 @@ public class Player : MonoBehaviour
         boxCollider.enabled = false;
 
         isAttack = false;
+        isJumpAttack = false;
         animator.SetBool("IsAttack", false);
         animator.SetBool("ComboAttack", false);
+        animator.SetBool("IsJumpAttack", false);
     }
 
     private void EndThrow()
