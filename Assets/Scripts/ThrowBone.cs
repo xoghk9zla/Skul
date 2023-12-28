@@ -10,6 +10,10 @@ public class ThrowBone : MonoBehaviour
     bool isRight;
     private float cooldownTime;
 
+    private void Awake()
+    {
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +42,7 @@ public class ThrowBone : MonoBehaviour
         if (rigid != null && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Destroy(gameObject);
+            SkillManager.Instance.ResetCoolTime(SkillManager.SkillType.SkillA);
         }
     }
 

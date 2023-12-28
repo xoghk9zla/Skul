@@ -9,16 +9,18 @@ public class Player : MonoBehaviour
     private float horizontal;
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;
+
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
 
     private bool isJump = false;
-    private float verticalVelocity;
+    private float verticalVelocity; 
     [SerializeField] private float gravity = 9.81f;
     [SerializeField] private float jumpForce = 5.0f;
 
     private Animator animator;
+    private bool isAttack;
 
     [SerializeField] GameObject objThrowBone;
     [SerializeField] GameObject objReboneEffect;
@@ -31,6 +33,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] PlayerHp playerHp;
     [SerializeField] SkillManager skillManager;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            Enemy Sc = collision.GetComponent<Enemy>();
+            Sc.Hit();
+        }        
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -52,6 +63,8 @@ public class Player : MonoBehaviour
         Jumping();
         CheckGravity();
         SetAnimationParameter();
+
+        Attack();
 
         SkillA();
         SkillS();
@@ -152,7 +165,7 @@ public class Player : MonoBehaviour
     {
         int count = trsObjDynamic.childCount;
 
-        if (Input.GetKeyDown(KeyCode.A) && count == 0)
+        if (Input.GetKeyDown(KeyCode.A) && count == 0 && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillA))
         {
             GameObject obj = Instantiate(objThrowBone, trsHead.position, Quaternion.identity, trsObjDynamic);
             ThrowBone sc = obj.GetComponent<ThrowBone>();
@@ -163,6 +176,8 @@ public class Player : MonoBehaviour
             sc.SkillSetting(throwForce, isRight, cooldownTimeA);
 
             animator.SetBool("IsThrow", true);
+
+            skillManager.ActiveSkill(SkillManager.SkillType.SkillA);
         }
     }
 
@@ -170,7 +185,7 @@ public class Player : MonoBehaviour
     {
         int count = trsObjDynamic.childCount;
 
-        if (Input.GetKeyDown(KeyCode.S) && count != 0 && !animator.GetBool("IsRebone"))
+        if (Input.GetKeyDown(KeyCode.S) && count != 0 && !animator.GetBool("IsRebone") && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillS))
         {
             Vector3 effectPos = transform.position;
             GameObject obj = Instantiate(objReboneEffect, effectPos, Quaternion.identity, trsObjDynamic);
@@ -186,9 +201,25 @@ public class Player : MonoBehaviour
 
             curHp -= 5.0f;
             playerHp.SetPlayerHp(curHp, maxHp); // test
+            
+            skillManager.ActiveSkill(SkillManager.SkillType.SkillS);
         }
     }
 
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && !isAttack && isGround)
+        {
+            isAttack = true;
+            animator.SetBool("IsAttack", true);
+        }
+        else if (Input.GetKeyDown(KeyCode.X) && isAttack && isGround)
+        {
+            animator.SetBool("ComboAttack", true);
+        }
+    }
+
+    // 플레이어 상태 설정 관련 함수
     public void SetPlayerHp(PlayerHp _value)
     {
         playerHp = _value;
@@ -201,16 +232,19 @@ public class Player : MonoBehaviour
         skillManager.SetSkill(cooldownTimeA, cooldownTimeS);
     }
 
+    // Animator 관련 함수들
     private void StartAttack()
     {
-        Debug.Log("Start");
         boxCollider.enabled = true;
     }
 
     private void EndAttack()
     {
-        Debug.Log("End");
         boxCollider.enabled = false;
+
+        isAttack = false;
+        animator.SetBool("IsAttack", false);
+        animator.SetBool("ComboAttack", false);
     }
 
     private void EndThrow()

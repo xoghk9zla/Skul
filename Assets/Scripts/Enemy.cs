@@ -27,6 +27,12 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public void Hit()
+    {
+        animator.SetBool("IsHit", true);
+    }
+
+    // 애니메이션 관련 함수들
     public void EndHit()
     {
         animator.SetBool("IsHit", false);
