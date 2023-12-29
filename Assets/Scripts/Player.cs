@@ -15,13 +15,17 @@ public class Player : MonoBehaviour
     [SerializeField] private float curHp;
 
     private bool isJump = false;
+    private bool canJump;
     private float verticalVelocity; 
     [SerializeField] private float gravity = 9.81f;
     [SerializeField] private float jumpForce = 5.0f;
 
+    [SerializeField] GameObject objDashEffect;
+    [SerializeField] Transform trsFoot;
+
     private Animator animator;
     private bool isAttack;
-    private bool isJumpAttack;
+    private bool isJumpAttack;    
 
     [SerializeField] GameObject objThrowBone;
     [SerializeField] GameObject objReboneEffect;
@@ -62,6 +66,7 @@ public class Player : MonoBehaviour
         Moving();
         Turing();
         Jumping();
+        CheckDash();
         CheckGravity();
         SetAnimationParameter();
 
@@ -85,6 +90,7 @@ public class Player : MonoBehaviour
         if (hit.transform != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             isGround = true;
+            canJump = true;
         }
         
     }
@@ -127,12 +133,20 @@ public class Player : MonoBehaviour
 
     private void Jumping()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && canJump)
         {
             isJump = true;
         }        
     }
 
+    private void CheckDash()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            animator.SetBool("IsDash", true);
+            Instantiate(objDashEffect, trsFoot.position, Quaternion.identity, trsFoot);
+        }
+    }
     private void CheckGravity()
     {
         verticalVelocity -= gravity * Time.deltaTime;
@@ -150,7 +164,13 @@ public class Player : MonoBehaviour
         {
             isJump = false;
             verticalVelocity = jumpForce;
+
+            if(canJump && !isGround)
+            {
+                canJump = false;
+            }
         }
+        
 
         rigid.velocity = new Vector2(rigid.velocity.x, verticalVelocity);
     }
@@ -176,7 +196,7 @@ public class Player : MonoBehaviour
 
             sc.SkillSetting(throwForce, isRight, cooldownTimeA);
 
-            animator.SetBool("IsThrow", true);
+            animator.SetBool("IsThrow", true);            
 
             skillManager.ActiveSkill(SkillManager.SkillType.SkillA);
         }
@@ -196,9 +216,10 @@ public class Player : MonoBehaviour
             movePos.y += 0.05f;
             transform.position = movePos;
 
+            Instantiate(objReboneEffect, transform.position, Quaternion.identity, trsObjDynamic);            
+
             animator.SetBool("IsRebone", true);
-            animator.SetBool("IsThrow", false);
-            transform.Find("RebornEffect").gameObject.SetActive(true);
+            animator.SetBool("IsThrow", false);                     
 
             curHp -= 5.0f;
             playerHp.SetPlayerHp(curHp, maxHp); // test
@@ -213,8 +234,9 @@ public class Player : MonoBehaviour
         {
             isAttack = true;
             animator.SetBool("IsAttack", true);
+            
         }
-        else if (Input.GetKeyDown(KeyCode.X) && isAttack && isGround)
+        else if (Input.GetKeyDown(KeyCode.X) && isAttack && isGround && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackA"))
         {
             animator.SetBool("ComboAttack", true);
         }
@@ -250,10 +272,24 @@ public class Player : MonoBehaviour
         boxCollider.enabled = false;
 
         isAttack = false;
+        animator.SetBool("IsAttack", false);
+    }
+
+    private void EndJumpAttack()
+    {
+        boxCollider.enabled = false;
+
         isJumpAttack = false;
+        animator.SetBool("IsJumpAttack", false);
+    }
+
+    private void EndComboAttack()
+    {
+        boxCollider.enabled = false;
+
+        isAttack = false;
         animator.SetBool("IsAttack", false);
         animator.SetBool("ComboAttack", false);
-        animator.SetBool("IsJumpAttack", false);
     }
 
     private void EndThrow()
@@ -263,12 +299,7 @@ public class Player : MonoBehaviour
 
     private void EndReborn()
     {
-        animator.SetBool("IsRebone", false);        
-        transform.Find("RebornEffect").gameObject.SetActive(false);
-
-        foreach(Transform child in trsObjDynamic)
-        {
-            Destroy(child.gameObject);
-        }
+        animator.SetBool("IsRebone", false);                
     }
+
 }
