@@ -20,8 +20,14 @@ public class Player : MonoBehaviour
     [SerializeField] private float gravity = 9.81f;
     [SerializeField] private float jumpForce = 5.0f;
 
+    private bool isDash = false;
+    private float dashTimer = 0.0f;
+    [SerializeField] private float dashLimit = 0.2f;
+
     [SerializeField] GameObject objDashEffect;
-    [SerializeField] Transform trsFoot;
+    [SerializeField] GameObject objJumpEffect;
+    [SerializeField] Transform trsDash;
+    [SerializeField] Transform trsJump;
 
     private Animator animator;
     private bool isAttack;
@@ -66,8 +72,8 @@ public class Player : MonoBehaviour
         Moving();
         Turing();
         Jumping();
-        CheckDash();
         CheckGravity();
+        CheckDash();
         SetAnimationParameter();
 
         Attack();
@@ -97,6 +103,11 @@ public class Player : MonoBehaviour
 
     private void Moving()
     {
+        if (isDash)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKey(KeyCode.LeftArrow))
         {
             horizontal = -1.0f;
@@ -141,16 +152,40 @@ public class Player : MonoBehaviour
 
     private void CheckDash()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && !isDash)
         {
+            bool isRight = (transform.localScale.x == 1.0f);
+            
+            isDash = true;
+            verticalVelocity = 0.0f;
+            rigid.velocity = new Vector2(isRight ? 3.0f : -3.0f, 0.0f);
             animator.SetBool("IsDash", true);
-            Instantiate(objDashEffect, trsFoot.position, Quaternion.identity, trsFoot);
+            GameObject objDash = Instantiate(objDashEffect, trsDash.position, Quaternion.identity, trsDash);
+            objDash.transform.parent = trsObjDynamic;
+        }
+        else if(isDash)
+        {
+            dashTimer += Time.deltaTime;
+            
+            if(dashTimer >= dashLimit)
+            {
+                dashTimer = 0.0f;
+                isDash = false;
+                animator.SetBool("IsDash", false);
+            }
+            
         }
     }
     private void CheckGravity()
     {
+        if (isDash)
+        {
+            return;
+        }
+
         verticalVelocity -= gravity * Time.deltaTime;
 
+        
         if (verticalVelocity < -10.0f)
         {
             verticalVelocity = -10.0f;
@@ -159,7 +194,7 @@ public class Player : MonoBehaviour
         {
             verticalVelocity = Mathf.Lerp(verticalVelocity, 0.0f, Time.deltaTime * 5.0f);
         }
-
+        
         if(isJump)
         {
             isJump = false;
@@ -168,6 +203,8 @@ public class Player : MonoBehaviour
             if(canJump && !isGround)
             {
                 canJump = false;
+                GameObject objJump = Instantiate(objJumpEffect, trsJump.position, Quaternion.identity, trsJump);
+                objJump.transform.parent = trsObjDynamic;
             }
         }
         
