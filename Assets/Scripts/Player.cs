@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
+    [SerializeField] private float damage = 5.0f;
 
     private bool isJump = false;
     private bool canJump;
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit();
+            Sc.Hit(damage);
         }        
     }
 

@@ -7,6 +7,16 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private BoxCollider2D boxCollider2D;
 
+    private float maxHp;
+    private float curHp;
+
+    public enum enumEnemyType
+    {
+        ScareCrow, Ent, RootEnt, FlowerEnt, ForestKeeper,
+    }
+
+    public enumEnemyType enemyType;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -27,9 +37,14 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void Hit()
+    public void Hit(float _damage)
     {
         animator.SetBool("IsHit", true);
+
+        if(enemyType != enumEnemyType.ScareCrow)
+        {
+            curHp -= _damage;
+        }
     }
 
     // 애니메이션 관련 함수들

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 407187665833018021}
   - component: {fileID: 2225835755442102173}
   m_Layer: 7
-  m_Name: Scarecrow
+  m_Name: ScareCrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

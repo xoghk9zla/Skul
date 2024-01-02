@@ -3908,7 +3908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8896943868689472311, guid: 2d62dc0f496ffb041a0f8a054a61bb32, type: 3}
       propertyPath: m_Name
-      value: Scarecrow
+      value: ScareCrow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
