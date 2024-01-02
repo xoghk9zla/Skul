@@ -38,6 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject objReboneEffect;
     [SerializeField] Transform trsHead;
     [SerializeField] Transform trsObjDynamic;
+    [SerializeField] Transform trsObjEffect;
     [SerializeField] float cooldownTimeA = 6.0f;
     [SerializeField] float cooldownTimeS = 3.0f;
 
@@ -162,7 +163,7 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(isRight ? 3.0f : -3.0f, 0.0f);
             animator.SetBool("IsDash", true);
             GameObject objDash = Instantiate(objDashEffect, trsDash.position, Quaternion.identity, trsDash);
-            objDash.transform.parent = trsObjDynamic;
+            objDash.transform.parent = trsObjEffect;
         }
         else if(isDash)
         {
@@ -205,7 +206,7 @@ public class Player : MonoBehaviour
             {
                 canJump = false;
                 GameObject objJump = Instantiate(objJumpEffect, trsJump.position, Quaternion.identity, trsJump);
-                objJump.transform.parent = trsObjDynamic;
+                objJump.transform.parent = trsObjEffect;
             }
         }
         
