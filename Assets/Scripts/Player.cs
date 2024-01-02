@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rigid;
-    private Vector3 moveDir;
+    private Vector2 moveDir;
     private float horizontal;
     private BoxCollider2D boxCollider2d;
     private bool isGround = false;

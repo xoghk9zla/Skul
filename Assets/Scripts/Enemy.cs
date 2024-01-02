@@ -44,6 +44,8 @@ public class Enemy : MonoBehaviour
     {
         CheckGround();
         Moving();
+
+        SetAnimationParameter();
     }
 
     private void FixedUpdate()
@@ -82,6 +84,12 @@ public class Enemy : MonoBehaviour
         moveSpeed *= -1.0f;
 
         transform.localScale = scale;
+    }
+
+    private void SetAnimationParameter()
+    {
+        bool IsWalk = moveSpeed != 0.0f ? true : false;
+        animator.SetBool("IsWalk", IsWalk);        
     }
 
     public void Hit(float _damage)
