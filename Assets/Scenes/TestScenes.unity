@@ -478,7 +478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196758815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.085, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1095,7 +1095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483914338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1258,7 +1258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620378800}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1547,10 +1547,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025, y: 0.02}
+  m_Offset: {x: 0, y: 0.35}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.56, y: 0.64}
     newSize: {x: 0.56, y: 0.64}
     adaptiveTilingThreshold: 0.5
@@ -1558,7 +1558,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.6}
+  m_Size: {x: 0.45, y: 0.58}
   m_EdgeRadius: 0
 --- !u!50 &921607639
 Rigidbody2D:
@@ -1695,6 +1695,7 @@ MonoBehaviour:
   isGround: 0
   maxHp: 0
   curHp: 0
+  moveSpeed: 0.3
   enemyType: 1
 --- !u!1 &967497424
 GameObject:
@@ -2085,10 +2086,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025, y: 0.02}
+  m_Offset: {x: 0, y: 0.35}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.7, y: 0.67}
     newSize: {x: 0.7, y: 0.67}
     adaptiveTilingThreshold: 0.5
@@ -2096,7 +2097,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.6}
+  m_Size: {x: 0.45, y: 0.58}
   m_EdgeRadius: 0
 --- !u!50 &1184880519
 Rigidbody2D:
@@ -2233,6 +2234,7 @@ MonoBehaviour:
   isGround: 0
   maxHp: 0
   curHp: 0
+  moveSpeed: 0.3
   enemyType: 3
 --- !u!1 &1217759770
 GameObject:
@@ -2314,10 +2316,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025, y: 0.02}
+  m_Offset: {x: 0, y: 0.35}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.56, y: 0.64}
     newSize: {x: 0.56, y: 0.64}
     adaptiveTilingThreshold: 0.5
@@ -2325,7 +2327,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.45, y: 0.6}
+  m_Size: {x: 0.45, y: 0.58}
   m_EdgeRadius: 0
 --- !u!95 &1217759773
 Animator:
@@ -2435,6 +2437,7 @@ MonoBehaviour:
   isGround: 0
   maxHp: 0
   curHp: 0
+  moveSpeed: 0.3
   enemyType: 2
 --- !u!1 &1293829989
 GameObject:
@@ -2461,7 +2464,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293829989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.3, z: 0}
+  m_LocalPosition: {x: 0.3, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3845,10 +3848,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.04}
+  m_Offset: {x: 0, y: 0.615605}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1.15, y: 1.12}
     newSize: {x: 1.15, y: 1.12}
     adaptiveTilingThreshold: 0.5
@@ -3856,7 +3859,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 0.95}
+  m_Size: {x: 1.1, y: 1.0144031}
   m_EdgeRadius: 0
 --- !u!114 &1684417882
 MonoBehaviour:
@@ -3877,6 +3880,7 @@ MonoBehaviour:
   isGround: 0
   maxHp: 0
   curHp: 0
+  moveSpeed: 0.3
   enemyType: 4
 --- !u!50 &1684417883
 Rigidbody2D:
