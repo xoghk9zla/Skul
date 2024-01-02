@@ -248,6 +248,8 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && count != 0 && !animator.GetBool("IsRebone") && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillS))
         {
             Vector3 effectPos = transform.position;
+            effectPos.y += 0.2f;
+
             GameObject obj = Instantiate(objReboneEffect, effectPos, Quaternion.identity, trsObjDynamic);
             Transform trsThrowBorn = trsObjDynamic.GetChild(0);
             Vector3 movePos = trsThrowBorn.position;

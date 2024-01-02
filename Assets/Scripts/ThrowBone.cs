@@ -34,7 +34,7 @@ public class ThrowBone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (rigid != null && collision.gameObject.layer != LayerMask.NameToLayer("Ground"))
+        if (rigid != null && collision.gameObject.layer != LayerMask.NameToLayer("Ground") && collision.gameObject.layer != LayerMask.NameToLayer("Attack"))
         {
             rigid.gravityScale = 1.0f;
             rigid.velocity = Vector2.zero;
