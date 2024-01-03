@@ -6,16 +6,18 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Animator animator;
-    private BoxCollider2D boxCollider2d;
+    private BoxCollider2D hitBox;
     private Rigidbody2D rigid;
 
     [SerializeField] LayerMask ground;
-    [SerializeField] private BoxCollider2D trigger;
+    [SerializeField] private BoxCollider2D checkGround;
     [SerializeField] private bool isGround = false;
 
     [SerializeField] private float maxHp = 20.0f;
     [SerializeField] private float curHp;
     [SerializeField] private float moveSpeed = 0.3f;
+
+    [SerializeField] private BoxCollider2D recognizeRange;
 
     public enum enumEnemyType
     {
@@ -27,13 +29,13 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        boxCollider2d = GetComponent<BoxCollider2D>();
+        hitBox = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(boxCollider2d != null && collision.gameObject.layer == LayerMask.NameToLayer("Skill")) 
+        if(hitBox != null && collision.gameObject.layer == LayerMask.NameToLayer("Skill")) 
         {
             animator.SetBool("IsHit", true);
         }
@@ -50,7 +52,7 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (trigger.IsTouchingLayers(ground) == false && isGround)
+        if (checkGround.IsTouchingLayers(ground) == false && isGround)
         {
             Turn();
         }
@@ -58,7 +60,7 @@ public class Enemy : MonoBehaviour
 
     private void CheckGround()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.BoxCast(hitBox.bounds.center, hitBox.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
 
         isGround = false;
 
