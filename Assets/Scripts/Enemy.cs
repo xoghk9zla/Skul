@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.3f;
 
     [SerializeField] private BoxCollider2D recognizeRange;
+    private bool isHit = false;
 
     public enum enumEnemyType
     {
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
     {
         if(hitBox != null && collision.gameObject.layer == LayerMask.NameToLayer("Skill")) 
         {
+            isHit = true;
             animator.SetBool("IsHit", true);
         }
     }
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour
 
     private void Moving()
     {
-        if(isGround && enemyType != enumEnemyType.ForestKeeper && enemyType != enumEnemyType.ScareCrow)
+        if(isGround && enemyType != enumEnemyType.ForestKeeper && enemyType != enumEnemyType.ScareCrow && !isHit)
         {
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
@@ -96,6 +98,7 @@ public class Enemy : MonoBehaviour
 
     public void Hit(float _damage)
     {
+        isHit = true;
         animator.SetBool("IsHit", true);
 
         if(enemyType != enumEnemyType.ScareCrow)
@@ -107,6 +110,7 @@ public class Enemy : MonoBehaviour
     // 애니메이션 관련 함수들
     public void EndHit()
     {
+        isHit = false;
         animator.SetBool("IsHit", false);
     }
 }
