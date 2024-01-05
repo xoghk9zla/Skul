@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
+using static Enemy;
 
 public class Player : MonoBehaviour
 {
@@ -287,6 +289,12 @@ public class Player : MonoBehaviour
             animator.SetBool("IsJumpAttack", true);
         }
 
+    }
+
+    public void Hit(float _damage)
+    {
+        curHp -= _damage;
+        playerHp.SetPlayerHp(curHp, maxHp);
     }
 
     // 플레이어 상태 설정 관련 함수

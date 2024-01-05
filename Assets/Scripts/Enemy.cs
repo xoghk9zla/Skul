@@ -16,9 +16,23 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxHp = 20.0f;
     [SerializeField] private float curHp;
     [SerializeField] private float moveSpeed = 0.3f;
+    [SerializeField] private float damage;
 
     [SerializeField] private BoxCollider2D recognizeRange;
+    [SerializeField] private BoxCollider2D boxCollider;
+    private bool isAttack = false;
     private bool isHit = false;
+
+    private Vector3 playerPos;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Attack();
+            playerPos = collision.transform.localPosition;
+        }
+    }
 
     public enum enumEnemyType
     {
@@ -75,7 +89,7 @@ public class Enemy : MonoBehaviour
 
     private void Moving()
     {
-        if(isGround && enemyType != enumEnemyType.ForestKeeper && enemyType != enumEnemyType.ScareCrow && !isHit)
+        if(isGround && enemyType != enumEnemyType.ForestKeeper && enemyType != enumEnemyType.ScareCrow && !isHit && !isAttack)
         {
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
@@ -96,6 +110,16 @@ public class Enemy : MonoBehaviour
         animator.SetBool("IsWalk", IsWalk);        
     }
 
+    private void Attack()
+    {
+        if (enemyType == enumEnemyType.Ent && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !isAttack)
+        {
+            isAttack = true;
+            animator.SetBool("IsWalk", false);
+            animator.SetBool("IsAttack", true);
+        }
+    }
+
     public void Hit(float _damage)
     {
         isHit = true;
@@ -108,6 +132,32 @@ public class Enemy : MonoBehaviour
     }
 
     // 애니메이션 관련 함수들
+    private void FindTarget()
+    {
+        Vector3 dir = playerPos - transform.position;
+        Debug.Log(dir.normalized.x);
+        if(dir.normalized.x * transform.localScale.x < 0.0f)
+        {
+            Turn();
+        }
+        rigid.velocity += new Vector2(moveSpeed * 2.5f, 0.0f);
+    }
+
+    private void StartAttack()
+    {
+        recognizeRange.enabled = false;
+        boxCollider.enabled = true;
+    }
+
+    private void EndAttack()
+    {
+        recognizeRange.enabled = true;
+        boxCollider.enabled = false;
+
+        isAttack = false;
+        animator.SetBool("IsAttack", false);
+    }
+
     public void EndHit()
     {
         isHit = false;
