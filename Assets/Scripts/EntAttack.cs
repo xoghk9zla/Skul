@@ -8,8 +8,10 @@ public class EntAttack : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            Enemy enemySc = transform.GetComponentInParent<Enemy>();            
             Player Sc = collision.GetComponent<Player>();
-            Sc.Hit(5.0f);
+
+            Sc.Hit(enemySc.GetDamage());
         }
     }
 

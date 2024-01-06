@@ -13,21 +13,24 @@ public class Enemy : MonoBehaviour
     [SerializeField] private BoxCollider2D checkGround;
     [SerializeField] private bool isGround = false;
 
-    [SerializeField] private float maxHp = 20.0f;
+    [SerializeField] private float maxHp;
     [SerializeField] private float curHp;
-    [SerializeField] private float moveSpeed = 0.3f;
+    [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
+    [SerializeField] private float attackSpeed;
+    private float attackDelay;
 
     [SerializeField] private BoxCollider2D recognizeRange;
     [SerializeField] private BoxCollider2D boxCollider;
     private bool isAttack = false;
     private bool isHit = false;
+    private bool canAttack = true;
 
     private Vector3 playerPos;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && canAttack)
         {
             Attack();
             playerPos = collision.transform.localPosition;
@@ -46,8 +49,11 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
-    }
 
+        curHp = maxHp;
+        attackDelay = attackSpeed;
+    }
+   
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(hitBox != null && collision.gameObject.layer == LayerMask.NameToLayer("Skill")) 
@@ -62,6 +68,7 @@ public class Enemy : MonoBehaviour
     {
         CheckGround();
         Moving();
+        CheckAttackTime();
 
         SetAnimationParameter();
     }
@@ -115,8 +122,23 @@ public class Enemy : MonoBehaviour
         if (enemyType == enumEnemyType.Ent && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !isAttack)
         {
             isAttack = true;
+            canAttack = false;
             animator.SetBool("IsWalk", false);
             animator.SetBool("IsAttack", true);
+        }
+    }
+
+    private void CheckAttackTime()
+    {
+        if (!canAttack)
+        {
+            attackDelay -= Time.deltaTime;
+
+            if(attackDelay <= 0.0f)
+            {
+                canAttack = true;
+                attackDelay = attackSpeed;
+            }
         }
     }
 
@@ -131,11 +153,16 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public float GetDamage()
+    {
+        return damage;
+    }
+
     // 애니메이션 관련 함수들
     private void FindTarget()
     {
         Vector3 dir = playerPos - transform.position;
-        Debug.Log(dir.normalized.x);
+
         if(dir.normalized.x * transform.localScale.x < 0.0f)
         {
             Turn();
@@ -162,5 +189,8 @@ public class Enemy : MonoBehaviour
     {
         isHit = false;
         animator.SetBool("IsHit", false);
+
+        isAttack = false;
+        animator.SetBool("IsAttack", false);
     }
 }
