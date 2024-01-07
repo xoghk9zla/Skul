@@ -96,7 +96,7 @@ public class Enemy : MonoBehaviour
 
     private void Moving()
     {
-        if(isGround && enemyType != enumEnemyType.ForestKeeper && enemyType != enumEnemyType.ScareCrow && !isHit && !isAttack)
+        if(isGround && !isHit && !isAttack)
         {
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
