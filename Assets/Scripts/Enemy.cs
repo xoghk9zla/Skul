@@ -190,7 +190,11 @@ public class Enemy : MonoBehaviour
         isHit = false;
         animator.SetBool("IsHit", false);
 
-        isAttack = false;
-        animator.SetBool("IsAttack", false);
+        if(enemyType != enumEnemyType.ScareCrow)
+        {
+            isAttack = false;
+            animator.SetBool("IsAttack", false);
+        }
+        
     }
 }

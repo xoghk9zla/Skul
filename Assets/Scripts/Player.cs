@@ -56,6 +56,22 @@ public class Player : MonoBehaviour
             Enemy Sc = collision.GetComponent<Enemy>();
             Sc.Hit(damage);
         }        
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        {
+                    
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                FogWolf Sc = collision.GetComponent<FogWolf>();
+                Sc.GiveBuff();
+            }
+        }
     }
 
     // Start is called before the first frame update
