@@ -9,6 +9,7 @@ public class FogWolf : MonoBehaviour
     [SerializeField] GameObject InteractUI;
 
     [SerializeField] BuffManager buffManager;
+    [SerializeField] BuffUI buffUI;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,6 +30,7 @@ public class FogWolf : MonoBehaviour
     private void Start()
     {
         buffManager = GetComponent<BuffManager>();
+        buffUI = GetComponent<BuffUI>();
     }
 
     public void GiveBuff(Player _player)
@@ -39,7 +41,8 @@ public class FogWolf : MonoBehaviour
 
             BuffManager.BuffList bufftype = (BuffManager.BuffList)UnityEngine.Random.Range(0, (Enum.GetNames(typeof(BuffManager.BuffList)).Length));
             _player.SetBuffStats(bufftype);
-            Debug.Log(bufftype.ToString());
+
+            buffUI.SetBuffImgae();
         }
         
     }
