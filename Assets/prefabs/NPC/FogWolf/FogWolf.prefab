@@ -168,6 +168,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractUI: {fileID: 1067305783253735797}
   buffManager: {fileID: 0}
+  trsBuffUI: {fileID: 0}
+  objBuffUI: {fileID: 7776696925417578155, guid: c84736d21ca46764b9df66dbdc9b1c47, type: 3}
+  objBuffEffect: {fileID: 5610693069904548493, guid: d204a648ea40fec438d25fe7c1aaee96, type: 3}
+  objBuffReadyEffect: {fileID: 4077540614423075709, guid: 5837be51796126843822f30ec741b931, type: 3}
 --- !u!1001 &7760515328059124976
 PrefabInstance:
   m_ObjectHideFlags: 0
