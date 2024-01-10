@@ -10,8 +10,15 @@ public class ThrowBone : MonoBehaviour
     bool isRight;
     private float cooldownTime;
 
+    Player player;
+
     private void Awake()
     {
+    }
+
+    public void SetPlayer(Player _player)
+    {
+        player = _player;
     }
 
     // Start is called before the first frame update
@@ -38,6 +45,12 @@ public class ThrowBone : MonoBehaviour
         {
             rigid.gravityScale = 1.0f;
             rigid.velocity = Vector2.zero;
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                Enemy Sc = collision.gameObject.GetComponent<Enemy>();
+                Sc.Hit(player.GetSkillDamage());
+            }
         }
 
         if (rigid != null && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -45,6 +58,7 @@ public class ThrowBone : MonoBehaviour
             Destroy(gameObject);
             SkillManager.Instance.ResetCoolTime(SkillManager.SkillType.SkillA);
         }
+
     }
 
     private void SetTimer()

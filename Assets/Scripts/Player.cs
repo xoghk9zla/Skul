@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
-    [SerializeField] private float damage = 5.0f;
+    [SerializeField] private float attackDamage = 5.0f;
+    [SerializeField] private float skillDamage = 3.0f;
+    [SerializeField] private float criticalChance = 10.0f;
 
     private bool isJump = false;
     private bool canJump;
@@ -54,7 +56,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit(damage);
+            Sc.Hit(CheckCritical());
         }        
         else if(collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
         {
@@ -69,7 +71,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 FogWolf Sc = collision.GetComponent<FogWolf>();
-                Sc.GiveBuff();
+                Sc.GiveBuff(this);
             }
         }
     }
@@ -247,6 +249,7 @@ public class Player : MonoBehaviour
         {
             GameObject obj = Instantiate(objThrowBone, trsHead.position, Quaternion.identity, trsObjDynamic);
             ThrowBone sc = obj.GetComponent<ThrowBone>();
+            sc.SetPlayer(this);
 
             bool isRight = (transform.localScale.x == 1.0f);
             Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
@@ -313,6 +316,24 @@ public class Player : MonoBehaviour
         playerHp.SetPlayerHp(curHp, maxHp);
     }
 
+    private float CheckCritical()
+    {
+        int isCritical = Random.Range(0, 100);
+        float result = attackDamage;
+
+        Debug.Log(isCritical);
+        if (isCritical <= criticalChance)
+        {
+            result *= 1.5f;
+        }
+        return result;
+    }
+
+    public float GetSkillDamage()
+    {
+        return skillDamage;
+    }
+
     // 플레이어 상태 설정 관련 함수
     public void SetPlayerHp(PlayerHp _value)
     {
@@ -324,6 +345,35 @@ public class Player : MonoBehaviour
     {
         skillManager = _value;
         skillManager.SetSkill(cooldownTimeA, cooldownTimeS);
+    }
+
+    public void SetBuffStats(BuffManager.BuffList _buffType)
+    {
+        BuffManager.BuffStats buffStats = new BuffManager.BuffStats();
+
+        if (_buffType == BuffManager.BuffList.AttackSpeed)
+        {
+            animator.SetFloat("AttackSpeed", buffStats.AttackSpeed);
+        }
+        else if (_buffType == BuffManager.BuffList.CriticalChance)
+        {
+            criticalChance += buffStats.Critical;
+        }
+        else if (_buffType == BuffManager.BuffList.Health)
+        {
+            maxHp += buffStats.Hp;
+            curHp += buffStats.Hp;
+            playerHp.SetPlayerHp(curHp, maxHp);
+        }
+        else if(_buffType == BuffManager.BuffList.MeleeAttackDamage)
+        {
+            attackDamage *= buffStats.AttackDamage;
+        }
+        else if(_buffType == BuffManager.BuffList.SkillAttackDamage)
+        {
+            skillDamage *= buffStats.SkillDamage;
+        }
+        
     }
 
     // Animator 관련 함수들

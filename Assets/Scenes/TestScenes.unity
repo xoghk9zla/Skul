@@ -955,7 +955,9 @@ MonoBehaviour:
   moveSpeed: 2
   maxHp: 150
   curHp: 150
-  damage: 5
+  attackDamage: 5
+  skillDamage: 3
+  criticalChance: 10
   gravity: 9.81
   jumpForce: 5
   dashLimit: 0.2
@@ -1820,7 +1822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859369288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.528, y: 0, z: 0}
+  m_LocalPosition: {x: -0.347, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1886,6 +1888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractUI: {fileID: 140214486}
+  buffManager: {fileID: 0}
 --- !u!1 &881115767
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,6 +2059,7 @@ GameObject:
   m_Component:
   - component: {fileID: 971151125}
   - component: {fileID: 971151126}
+  - component: {fileID: 971151127}
   m_Layer: 5
   m_Name: BuffUI
   m_TagString: Untagged
@@ -2114,6 +2118,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &971151127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971151124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dae635852393fe408a8a7a95ccc2c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1010255357
 GameObject:
   m_ObjectHideFlags: 0
