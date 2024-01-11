@@ -34,6 +34,8 @@ public class FogWolf : MonoBehaviour
     private void Start()
     {
         buffManager = GetComponent<BuffManager>();
+        GameObject objBuff = GameObject.Find("BuffUI");
+        trsBuffUI = objBuff.GetComponent<Transform>();
     }
 
     public void GiveBuff(Player _player)

@@ -372,7 +372,6 @@ MonoBehaviour:
   maxHp: 40
   curHp: 0
   moveSpeed: 0.3
-  damage: 5
   attackSpeed: 3
   enemyType: 1
 --- !u!114 &765650679527370920
@@ -390,3 +389,4 @@ MonoBehaviour:
   canAttack: 1
   attackSpeed: 3
   attackBox: {fileID: 8213834101424799688}
+  damage: 6

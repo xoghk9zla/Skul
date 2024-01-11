@@ -15,7 +15,7 @@ public class EntAttack : MonoBehaviour
     private float attackDelay;
 
     [SerializeField] private BoxCollider2D attackBox;
-
+    [SerializeField] private float damage;
 
     private Vector3 playerPos;
 
@@ -26,7 +26,7 @@ public class EntAttack : MonoBehaviour
             Enemy enemySc = transform.GetComponentInParent<Enemy>();
             Player Sc = _collision.GetComponent<Player>();
 
-            Sc.Hit(enemySc.GetDamage());
+            Sc.Hit(damage);
         }
     }
 

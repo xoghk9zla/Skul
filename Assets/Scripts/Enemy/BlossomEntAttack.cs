@@ -6,6 +6,11 @@ public class BlossomEntAttack : MonoBehaviour
 {
     [SerializeField] PolygonCollider2D collider2d;
 
+    private void Awake()
+    {
+        collider2d = GetComponent<PolygonCollider2D>();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -13,7 +18,7 @@ public class BlossomEntAttack : MonoBehaviour
             Enemy enemySc = transform.GetComponentInParent<Enemy>();
             Player Sc = collision.GetComponent<Player>();
 
-            Sc.Hit(enemySc.GetDamage());
+            Sc.Hit(4.0f);
         }
     }
 }

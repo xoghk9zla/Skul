@@ -16,12 +16,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxHp;
     [SerializeField] private float curHp;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float damage;
     [SerializeField] private float attackSpeed;
 
     private bool isHit = false;
-
-    private Vector3 playerPos;
+    private bool isAttack = false;
 
     public enum enumEnemyType
     {
@@ -112,11 +110,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public float GetDamage()
-    {
-        return damage;
-    }
-
     public float GetMoveSpeed()
     {
         return moveSpeed;
@@ -130,8 +123,9 @@ public class Enemy : MonoBehaviour
 
         if(enemyType != enumEnemyType.ScareCrow)
         {
-            EntAttack Sc = gameObject.GetComponent<EntAttack>();
-            Sc.SetIsAttack(false);
+            //EntAttack Sc = gameObject.GetComponent<EntAttack>();
+            //Sc.SetIsAttack(false);  // EntAttack이 isAttack를 들고있다 하지만 여기서도 관리 해야한다
+            isAttack = false;
             animator.SetBool("IsAttack", false);
         }
         
