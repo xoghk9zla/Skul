@@ -53,7 +53,7 @@ public class FogWolf : MonoBehaviour
             buffEffectReadyPos.y -= 0.34f;
 
             Instantiate(objBuffEffect, buffEffcetPos, Quaternion.identity, _player.transform);
-            Instantiate(objBuffReadyEffect, buffEffectReadyPos, Quaternion.identity, transform);
+            Instantiate(objBuffReadyEffect, buffEffectReadyPos, Quaternion.identity, transform.transform);
 
             GameObject obj = Instantiate(objBuffUI, trsBuffUI.position, Quaternion.identity, trsBuffUI);            
             BuffUI.Instance.SetBuff(bufftype, 0.0f);

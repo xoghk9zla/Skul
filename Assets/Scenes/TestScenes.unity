@@ -2237,7 +2237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184880517}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.778, y: 0.323, z: 0}
+  m_LocalPosition: {x: 1.778, y: 0.288, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2268,8 +2268,6 @@ MonoBehaviour:
   moveSpeed: 0.3
   damage: 0
   attackSpeed: 5
-  recognizeRange: {fileID: 1101373044}
-  boxCollider: {fileID: 0}
   enemyType: 3
 --- !u!1 &1217759770
 GameObject:
@@ -2476,8 +2474,6 @@ MonoBehaviour:
   moveSpeed: 0.3
   damage: 0
   attackSpeed: 5
-  recognizeRange: {fileID: 1929843339}
-  boxCollider: {fileID: 0}
   enemyType: 2
 --- !u!1 &1300091028
 GameObject:
@@ -3848,8 +3844,6 @@ MonoBehaviour:
   moveSpeed: 0
   damage: 0
   attackSpeed: 5
-  recognizeRange: {fileID: 257798449}
-  boxCollider: {fileID: 1722410513}
   enemyType: 4
 --- !u!50 &1684417883
 Rigidbody2D:
@@ -3888,7 +3882,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1722410511}
   - component: {fileID: 1722410513}
-  - component: {fileID: 1722410512}
   m_Layer: 8
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -3911,18 +3904,6 @@ Transform:
   m_Father: {fileID: 257798448}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1722410512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722410510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2dd2650d13bca64a93d12f342aae2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1722410513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4457,7 +4438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1166665597026742633, guid: fe2bf2be99bf61d4d81e50c6c0b3ecfc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.359
+      value: 0.094
       objectReference: {fileID: 0}
     - target: {fileID: 1166665597026742633, guid: fe2bf2be99bf61d4d81e50c6c0b3ecfc, type: 3}
       propertyPath: m_LocalPosition.z

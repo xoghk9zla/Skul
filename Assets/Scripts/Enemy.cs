@@ -18,24 +18,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float damage;
     [SerializeField] private float attackSpeed;
-    private float attackDelay;
 
-    [SerializeField] private BoxCollider2D recognizeRange;
-    [SerializeField] private BoxCollider2D boxCollider;
-    private bool isAttack = false;
     private bool isHit = false;
-    private bool canAttack = true;
 
     private Vector3 playerPos;
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && canAttack)
-        {
-            Attack();
-            playerPos = collision.transform.localPosition;
-        }
-    }
 
     public enum enumEnemyType
     {
@@ -51,7 +37,6 @@ public class Enemy : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
 
         curHp = maxHp;
-        attackDelay = attackSpeed;
     }
    
     private void OnCollisionEnter2D(Collision2D collision)
@@ -68,7 +53,6 @@ public class Enemy : MonoBehaviour
     {
         CheckGround();
         Moving();
-        CheckAttackTime();
 
         SetAnimationParameter();
     }
@@ -95,21 +79,12 @@ public class Enemy : MonoBehaviour
     }
 
     private void Moving()
-    {
-        if(isGround && !isHit && !isAttack)
+    {      
+        if(isGround && !isHit)
         {
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
-    }
-
-    private void Turn()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1.0f;
-        moveSpeed *= -1.0f;
-
-        transform.localScale = scale;
-    }
+    }    
 
     private void SetAnimationParameter()
     {
@@ -117,29 +92,13 @@ public class Enemy : MonoBehaviour
         animator.SetBool("IsWalk", IsWalk);        
     }
 
-    private void Attack()
+    public void Turn()
     {
-        if (enemyType == enumEnemyType.Ent && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !isAttack)
-        {
-            isAttack = true;
-            canAttack = false;
-            animator.SetBool("IsWalk", false);
-            animator.SetBool("IsAttack", true);
-        }
-    }
+        Vector3 scale = transform.localScale;
+        scale.x *= -1.0f;
+        moveSpeed *= -1.0f;
 
-    private void CheckAttackTime()
-    {
-        if (!canAttack)
-        {
-            attackDelay -= Time.deltaTime;
-
-            if(attackDelay <= 0.0f)
-            {
-                canAttack = true;
-                attackDelay = attackSpeed;
-            }
-        }
+        transform.localScale = scale;
     }
 
     public void Hit(float _damage)
@@ -158,33 +117,12 @@ public class Enemy : MonoBehaviour
         return damage;
     }
 
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
     // 애니메이션 관련 함수들
-    private void FindTarget()
-    {
-        Vector3 dir = playerPos - transform.position;
-
-        if(dir.normalized.x * transform.localScale.x < 0.0f)
-        {
-            Turn();
-        }
-        rigid.velocity += new Vector2(moveSpeed * 2.5f, 0.0f);
-    }
-
-    private void StartAttack()
-    {
-        recognizeRange.enabled = false;
-        boxCollider.enabled = true;
-    }
-
-    private void EndAttack()
-    {
-        recognizeRange.enabled = true;
-        boxCollider.enabled = false;
-
-        isAttack = false;
-        animator.SetBool("IsAttack", false);
-    }
-
     public void EndHit()
     {
         isHit = false;
@@ -192,7 +130,8 @@ public class Enemy : MonoBehaviour
 
         if(enemyType != enumEnemyType.ScareCrow)
         {
-            isAttack = false;
+            EntAttack Sc = gameObject.GetComponent<EntAttack>();
+            Sc.SetIsAttack(false);
             animator.SetBool("IsAttack", false);
         }
         
