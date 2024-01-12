@@ -61,8 +61,26 @@ public class EntAttack : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         enemy = GetComponent<Enemy>();
-
         attackDelay = attackSpeed;
+    }
+
+    private void Start()
+    {
+        if (enemy != null)
+        {
+            enemy.SetPrepareAction(GetIsAttackValue);
+            enemy.SetPrepareAction(GetCanAttackValue);
+        }
+    }
+
+    private void GetIsAttackValue()
+    {
+        IsAttack = enemy.IsAttack;
+    }
+
+    private void GetCanAttackValue()
+    {
+        CanAttack = enemy.CanAttack;
     }
 
     private void Update()
@@ -133,7 +151,7 @@ public class EntAttack : MonoBehaviour
     {
         attackBox.enabled = false;
 
-        isAttack = false;
+        IsAttack = false;
         animator.SetBool("IsAttack", false);
     }
 }

@@ -7,7 +7,6 @@ public class RootAttackSign : MonoBehaviour
     [SerializeField] private GameObject objRootAttack;
     [SerializeField] Transform trsObjDynamic;
 
-
     private void Start()
     {
         GameObject objDynamic = GameObject.Find("ObjectDynamic");

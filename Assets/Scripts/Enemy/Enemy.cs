@@ -17,12 +17,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxHp;
     [SerializeField] private float curHp;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private float attackSpeed;
 
     private bool isHit = false;
     private bool isAttack = false;
     private bool canAttack = true;
 
+    // property 변수
     public bool IsAttack
     {
         get => isAttack;
@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
             canAttack = value;
         }
     }
-
+    // UnityAction 으로 이벤트 예약-> isAttack, canAttack 변수 다른 스크립트들과 동기화(델리게이트)
     private UnityAction prepareAction;  // 기능을 예약
     public void SetPrepareAction(UnityAction _action)   // 예약을 받음
     {
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
 
     public enum enumEnemyType
     {
-        ScareCrow, Ent, RootEnt, FlowerEnt, ForestKeeper,
+        ScareCrow, Ent, RootEnt, FlowerEnt, GiganticEnt,
     }
 
     public enumEnemyType enemyType;

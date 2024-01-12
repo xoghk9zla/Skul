@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlossomEntAttack : MonoBehaviour
+public class GiganticEntAttack : MonoBehaviour
 {
     private bool isAttack = false;
     private bool canAttack = true;
@@ -34,8 +34,9 @@ public class BlossomEntAttack : MonoBehaviour
     [SerializeField] private float attackSpeed;
     private float attackDelay;
 
-    [SerializeField] private GameObject objBloosomSmoke;
-    [SerializeField] private Transform trsBloosom;
+    [SerializeField] private GameObject objBullet;
+    [SerializeField] private GameObject objStamp;
+    [SerializeField] private Transform trsMouse;
     [SerializeField] private Transform trsObjDynamic;
 
     private Animator animator;
@@ -83,14 +84,22 @@ public class BlossomEntAttack : MonoBehaviour
         Vector3 pos = transform.localPosition;
         pos.y += 0.375f;
 
-        RaycastHit2D recongnizeRange = Physics2D.BoxCast(pos, new Vector2(2.0f, 0.75f),
+        RaycastHit2D recongnizeBox = Physics2D.BoxCast(pos, new Vector2(2.0f, 0.75f),
             0.0f, Vector3.down, 0.8f, LayerMask.GetMask("Player"));
 
-        if (recongnizeRange.transform != null && canAttack)
+        RaycastHit2D recongnizeRange = Physics2D.CircleCast(pos, 1.5f, Vector2.zero, 2.0f, LayerMask.GetMask("Player"));
+
+        if (recongnizeBox.transform != null && canAttack)
         {
             IsAttack = true;
             CanAttack = false;
-            animator.SetBool("IsAttack", true);
+            animator.SetBool("IsMeleeAttack", true);
+        }
+        else if(recongnizeRange.transform != null && canAttack)
+        {
+            IsAttack = true;
+            CanAttack = false;
+            animator.SetBool("IsRangeAttack", true);
         }
     }
 
@@ -109,16 +118,28 @@ public class BlossomEntAttack : MonoBehaviour
     }
 
     // 애니메이션 관련 함수
-    private void StartAttack()
+    private void MeleeAttack()
     {
-
+        Instantiate(objStamp, transform.position, Quaternion.identity, trsObjDynamic);
     }
 
-    private void EndAttack()
+    private void EndMeleeAttack()
     {
         IsAttack = false;
-        animator.SetBool("IsAttack", false);
+        animator.SetBool("IsMeleeAttack", false);
+    }
 
-        Instantiate(objBloosomSmoke, trsBloosom.position, Quaternion.identity, trsObjDynamic);
+    private void RangeAttack()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            Instantiate(objBullet, trsMouse.position, Quaternion.Euler(0.0f, 0.0f, 60.0f * i), trsObjDynamic);
+        }        
+    }
+
+    private void EndRangeAttack()
+    {
+        IsAttack = false;
+        animator.SetBool("IsRangeAttack", false);
     }
 }

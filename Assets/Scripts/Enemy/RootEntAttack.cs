@@ -43,6 +43,9 @@ public class RootEntAttack : MonoBehaviour
     [SerializeField] private GameObject objRootAttackSign;
     [SerializeField] Transform trsObjDynamic;
 
+    private Vector2 rootSpawnPos;
+    private RaycastHit2D CheckGround;
+
     private Enemy enemy;
     /*
     private void OnDrawGizmos()
@@ -62,12 +65,15 @@ public class RootEntAttack : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        attackDelay = attackSpeed;
         enemy = GetComponent<Enemy>();
+        attackDelay = attackSpeed;
     }
 
     private void Start()
     {
+        GameObject objDynamic = GameObject.Find("ObjectDynamic");
+        trsObjDynamic = objDynamic.transform;
+
         if(enemy != null) 
         {
             enemy.SetPrepareAction(GetIsAttackValue);
@@ -104,7 +110,7 @@ public class RootEntAttack : MonoBehaviour
             if (canAttack)
             {
                 playerPos = recongnizeRange.transform.localPosition;
-                RaycastHit2D CheckGround = Physics2D.Raycast(playerPos + new Vector3(0, 0.15f, 0), Vector2.down, 0.9f, LayerMask.GetMask("Ground"));
+                CheckGround = Physics2D.Raycast(playerPos + new Vector3(0, 0.15f, 0), Vector2.down, 0.9f, LayerMask.GetMask("Ground"));
        
                 if (CheckGround.transform != null && CheckGround.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {   
@@ -112,9 +118,8 @@ public class RootEntAttack : MonoBehaviour
                     CanAttack = false;
                     animator.SetBool("IsAttack", true);
 
-                    Vector2 rootSpawnPos = CheckGround.point;
-                    rootSpawnPos.y -= 0.05f;
-                    Instantiate(objRootAttackSign, rootSpawnPos, Quaternion.identity, trsObjDynamic);
+                    rootSpawnPos = CheckGround.point;
+                    rootSpawnPos.y -= 0.05f;                    
                 }
             }
         }
@@ -144,5 +149,10 @@ public class RootEntAttack : MonoBehaviour
     {
         IsAttack = false;
         animator.SetBool("IsAttack", false);
+
+        if(CheckGround.transform != null)
+        {
+            Instantiate(objRootAttackSign, rootSpawnPos, Quaternion.identity, trsObjDynamic);
+        }
     }
 }
