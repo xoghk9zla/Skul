@@ -1,15 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RootEntAttack : MonoBehaviour
 {
     private Vector3 playerPos;
     private bool isAttack = false;
     private bool canAttack = true;
+
+    public bool IsAttack
+    {
+        set 
+        {
+            isAttack = value;
+            if (enemy != null)
+            {
+                enemy.IsAttack = value;
+            }
+        }
+    }
+
+    public bool CanAttack
+    {
+        set
+        {
+            canAttack = value;
+            if (enemy != null)
+            {
+                enemy.CanAttack = value;
+            }
+        }
+    }
+
     [SerializeField] private float attackSpeed;
     private float attackDelay;
-
 
     private Animator animator;
 
@@ -17,18 +43,46 @@ public class RootEntAttack : MonoBehaviour
     [SerializeField] private GameObject objRootAttackSign;
     [SerializeField] Transform trsObjDynamic;
 
+    private Enemy enemy;
+    /*
     private void OnDrawGizmos()
     {
         RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(2.5f, 0.75f),
-            0.0f, Vector2.down, 0.3f, LayerMask.GetMask("Player"));
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position + Vector3.down * recongnizeRange.distance, new Vector2(2.5f, 0.75f));
-    }
+            0.0f, Vector2.down, 0.8f, LayerMask.GetMask("Player"));
+        Vector3 pos = transform.localPosition;
+        pos.y += 0.375f;
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(pos, new Vector2(2.5f, 0.75f));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(playerPos + new Vector3(0, 0.15f, 0), playerPos - new Vector3(0, 0.75f, 0));
+    }
+    */
     private void Awake()
     {
         animator = GetComponent<Animator>();
         attackDelay = attackSpeed;
+        enemy = GetComponent<Enemy>();
+    }
+
+    private void Start()
+    {
+        if(enemy != null) 
+        {
+            enemy.SetPrepareAction(GetIsAttackValue);
+            enemy.SetPrepareAction(GetCanAttackValue);
+        }
+    }
+
+    private void GetIsAttackValue()
+    {
+        IsAttack = enemy.IsAttack;
+    }
+
+    private void GetCanAttackValue()
+    {
+        CanAttack = enemy.CanAttack;
     }
 
     private void Update()
@@ -39,20 +93,23 @@ public class RootEntAttack : MonoBehaviour
 
     private void RecognizePlayer()
     {
-        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(2.5f, 0.75f),
-            0.0f, Vector3.down, 0.3f, LayerMask.GetMask("Player"));
+        Vector3 pos = transform.localPosition;
+        pos.y += 0.375f;
+
+        RaycastHit2D recongnizeRange = Physics2D.BoxCast(pos, new Vector2(2.5f, 0.75f),
+            0.0f, Vector3.down, 0.8f, LayerMask.GetMask("Player"));
 
         if (recongnizeRange.transform != null && recongnizeRange.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             if (canAttack)
             {
                 playerPos = recongnizeRange.transform.localPosition;
-                RaycastHit2D CheckGround = Physics2D.Raycast(playerPos, Vector2.down, 0.75f, LayerMask.GetMask("Ground"));
+                RaycastHit2D CheckGround = Physics2D.Raycast(playerPos + new Vector3(0, 0.15f, 0), Vector2.down, 0.9f, LayerMask.GetMask("Ground"));
        
                 if (CheckGround.transform != null && CheckGround.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {   
-                    isAttack = true;
-                    canAttack = false;
+                    IsAttack = true;
+                    CanAttack = false;
                     animator.SetBool("IsAttack", true);
 
                     Vector2 rootSpawnPos = CheckGround.point;
@@ -71,7 +128,7 @@ public class RootEntAttack : MonoBehaviour
 
             if (attackDelay <= 0.0f)
             {
-                canAttack = true;
+                CanAttack = true;
                 attackDelay = attackSpeed;
             }
         }
@@ -85,7 +142,7 @@ public class RootEntAttack : MonoBehaviour
 
     private void EndAttack()
     {
-        isAttack = false;
+        IsAttack = false;
         animator.SetBool("IsAttack", false);
     }
 }

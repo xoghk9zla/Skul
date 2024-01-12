@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
@@ -20,6 +21,31 @@ public class Enemy : MonoBehaviour
 
     private bool isHit = false;
     private bool isAttack = false;
+    private bool canAttack = true;
+
+    public bool IsAttack
+    {
+        get => isAttack;
+        set 
+        {
+            isAttack = value;
+        }
+    }
+
+    public bool CanAttack
+    {
+        get => canAttack;
+        set
+        {
+            canAttack = value;
+        }
+    }
+
+    private UnityAction prepareAction;  // 기능을 예약
+    public void SetPrepareAction(UnityAction _action)   // 예약을 받음
+    {
+        prepareAction += _action;
+    }
 
     public enum enumEnemyType
     {
@@ -78,7 +104,7 @@ public class Enemy : MonoBehaviour
 
     private void Moving()
     {      
-        if(isGround && !isHit)
+        if(isGround && !isHit && !IsAttack)
         {
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
@@ -123,9 +149,12 @@ public class Enemy : MonoBehaviour
 
         if(enemyType != enumEnemyType.ScareCrow)
         {
-            //EntAttack Sc = gameObject.GetComponent<EntAttack>();
-            //Sc.SetIsAttack(false);  // EntAttack이 isAttack를 들고있다 하지만 여기서도 관리 해야한다
-            isAttack = false;
+            IsAttack = false;
+            if (prepareAction != null)
+            { 
+                prepareAction.Invoke();
+            }
+            //preapreAction?.Invoke();
             animator.SetBool("IsAttack", false);
         }
         

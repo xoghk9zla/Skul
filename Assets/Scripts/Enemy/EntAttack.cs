@@ -8,14 +8,40 @@ public class EntAttack : MonoBehaviour
 {
     private Rigidbody2D rigid;
     private Animator animator;
+    private Enemy enemy;
 
-    private bool isAttack = false;
-    [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackSpeed;
     private float attackDelay;
 
     [SerializeField] private BoxCollider2D attackBox;
     [SerializeField] private float damage;
+
+    private bool isAttack = false;
+    private bool canAttack = true;
+
+    public bool IsAttack
+    {
+        set
+        {
+            isAttack = value;
+            if (enemy != null)
+            {
+                enemy.IsAttack = value;
+            }
+        }
+    }
+
+    public bool CanAttack
+    {
+        set
+        {
+            canAttack = value;
+            if (enemy != null)
+            {
+                enemy.CanAttack = value;
+            }
+        }
+    }
 
     private Vector3 playerPos;
 
@@ -34,6 +60,7 @@ public class EntAttack : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        enemy = GetComponent<Enemy>();
 
         attackDelay = attackSpeed;
     }
@@ -62,8 +89,8 @@ public class EntAttack : MonoBehaviour
     {
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !isAttack)
         {
-            isAttack = true;
-            canAttack = false;
+            IsAttack = true;
+            CanAttack = false;
             animator.SetBool("IsWalk", false);
             animator.SetBool("IsAttack", true);
         }
@@ -77,20 +104,10 @@ public class EntAttack : MonoBehaviour
 
             if (attackDelay <= 0.0f)
             {
-                canAttack = true;
+                CanAttack = true;
                 attackDelay = attackSpeed;
             }
         }
-    }
-
-    public bool GetIsAttack()
-    {
-        return isAttack;
-    }
-
-    public void SetIsAttack(bool _isAttack)
-    {
-        isAttack = _isAttack;
     }
 
     // 애니메이션 관련 함수
