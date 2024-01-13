@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class ThrowBone : MonoBehaviour
 {
-    Rigidbody2D rigid;
+    private Rigidbody2D rigid;
 
-    Vector2 force;
-    bool isRight;
+    private Vector2 force;
+    private bool isRight;
     private float cooldownTime;
+
+    private float skillDamage = 3.0f;
+
+    public float SkillDamage
+    {
+        set
+        {
+            skillDamage = value;
+            if (player != null)
+            {
+                player.SkillDamage = value;
+            }
+        }
+    }
 
     Player player;
 
@@ -49,7 +63,7 @@ public class ThrowBone : MonoBehaviour
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
                 Enemy Sc = collision.gameObject.GetComponent<Enemy>();
-                Sc.Hit(player.GetSkillDamage());
+                Sc.Hit(skillDamage);
             }
         }
 

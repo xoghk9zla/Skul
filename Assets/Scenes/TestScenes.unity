@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 258602906}
   - component: {fileID: 258602905}
   - component: {fileID: 258602907}
+  - component: {fileID: 258602908}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -749,6 +750,21 @@ MonoBehaviour:
   boxCollider: {fileID: 629003700}
   playerHp: {fileID: 0}
   skillManager: {fileID: 0}
+--- !u!114 &258602908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258602901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc579d1542113c4d8a88c1b67707c6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 5
+  criticalChance: 10
+  attackCollider: {fileID: 629003700}
 --- !u!1 &427901810
 GameObject:
   m_ObjectHideFlags: 0

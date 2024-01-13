@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
+using UnityEngine.Events;
 using static Enemy;
 
 public class Player : MonoBehaviour
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private bool isAttack;
+    private bool canAttack;
     private bool isJumpAttack;    
 
     [SerializeField] GameObject objThrowBone;
@@ -46,22 +48,76 @@ public class Player : MonoBehaviour
     [SerializeField] float cooldownTimeA = 6.0f;
     [SerializeField] float cooldownTimeS = 3.0f;
 
-    [SerializeField] BoxCollider2D boxCollider;
-
     [SerializeField] PlayerHp playerHp;
     [SerializeField] SkillManager skillManager;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public bool IsGround
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        get => isGround;
+        set
         {
-            Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit(CheckCritical());
-        }        
-        else if(collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
-        {
-                    
+            isGround = value;
         }
+    }
+
+    public bool IsAttack
+    {
+        get => isAttack;
+        set
+        {
+            isAttack = value;
+        }
+    }
+
+    public bool CanAttack
+    {
+        get => canAttack;
+        set
+        {
+            canAttack = value;
+        }
+    }
+
+    public bool IsJumpAttack
+    {
+        get => isJumpAttack;
+        set
+        {
+            isJumpAttack = value;
+        }
+    }
+
+    public float AttackDamage
+    {
+        get => attackDamage;
+        set
+        {
+            attackDamage = value;
+        }
+    }
+
+    public float SkillDamage
+    {
+        get => skillDamage;
+        set
+        {
+            skillDamage = value;
+        }
+    }
+
+    public float CriticalChance
+    {
+        get => criticalChance;
+        set
+        {
+            criticalChance = value;
+        }
+    }
+
+    private UnityAction prepareAction;
+    public void SetPrepareAction(UnityAction _action)
+    {
+        prepareAction += _action;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -98,8 +154,6 @@ public class Player : MonoBehaviour
         CheckDash();
         SetAnimationParameter();
 
-        Attack();
-
         SkillA();
         SkillS();
     }
@@ -108,7 +162,7 @@ public class Player : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
 
-        isGround = false;
+        IsGround = false;
 
         if(verticalVelocity > 0.0f)
         {
@@ -117,10 +171,11 @@ public class Player : MonoBehaviour
 
         if (hit.transform != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            isGround = true;
+            IsGround = true;
             canJump = true;
         }
         
+        prepareAction.Invoke();
     }
 
     private void Moving()
@@ -290,48 +345,10 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Attack()
-    {
-        if (Input.GetKeyDown(KeyCode.X) && !isAttack && isGround)
-        {
-            isAttack = true;
-            animator.SetBool("IsAttack", true);
-            
-        }
-        else if (Input.GetKeyDown(KeyCode.X) && isAttack && isGround && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackA"))
-        {
-            animator.SetBool("ComboAttack", true);
-        }
-        else if (Input.GetKeyDown(KeyCode.X) && !isJumpAttack && !isGround)
-        {
-            isJumpAttack = true;
-            animator.SetBool("IsJumpAttack", true);
-        }
-
-    }
-
     public void Hit(float _damage)
     {
         curHp -= _damage;
         playerHp.SetPlayerHp(curHp, maxHp);
-    }
-
-    private float CheckCritical()
-    {
-        int isCritical = Random.Range(0, 100);
-        float result = attackDamage;
-
-        Debug.Log(isCritical);
-        if (isCritical <= criticalChance)
-        {
-            result *= 1.5f;
-        }
-        return result;
-    }
-
-    public float GetSkillDamage()
-    {
-        return skillDamage;
     }
 
     // 플레이어 상태 설정 관련 함수
@@ -373,40 +390,15 @@ public class Player : MonoBehaviour
         {
             skillDamage *= buffStats.SkillDamage;
         }
-        
+
+        // 버프 적용 후 변수 초기화
+        if (prepareAction != null)
+        {
+            prepareAction.Invoke();
+        }
     }
 
     // Animator 관련 함수들
-    private void StartAttack()
-    {
-        boxCollider.enabled = true;
-    }
-
-    private void EndAttack()
-    {
-        boxCollider.enabled = false;
-
-        isAttack = false;
-        animator.SetBool("IsAttack", false);
-    }
-
-    private void EndJumpAttack()
-    {
-        boxCollider.enabled = false;
-
-        isJumpAttack = false;
-        animator.SetBool("IsJumpAttack", false);
-    }
-
-    private void EndComboAttack()
-    {
-        boxCollider.enabled = false;
-
-        isAttack = false;
-        animator.SetBool("IsAttack", false);
-        animator.SetBool("ComboAttack", false);
-    }
-
     private void EndThrow()
     {
         animator.SetBool("IsThrow", false);
