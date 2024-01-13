@@ -544,6 +544,7 @@ GameObject:
   - component: {fileID: 258602905}
   - component: {fileID: 258602907}
   - component: {fileID: 258602908}
+  - component: {fileID: 258602909}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -730,9 +731,6 @@ MonoBehaviour:
   moveSpeed: 2
   maxHp: 150
   curHp: 150
-  attackDamage: 5
-  skillDamage: 3
-  criticalChance: 10
   gravity: 9.81
   jumpForce: 5
   dashLimit: 0.2
@@ -747,7 +745,6 @@ MonoBehaviour:
   trsObjEffect: {fileID: 523474369}
   cooldownTimeA: 6
   cooldownTimeS: 3
-  boxCollider: {fileID: 629003700}
   playerHp: {fileID: 0}
   skillManager: {fileID: 0}
 --- !u!114 &258602908
@@ -765,6 +762,23 @@ MonoBehaviour:
   attackDamage: 5
   criticalChance: 10
   attackCollider: {fileID: 629003700}
+--- !u!114 &258602909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258602901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0531f48d2cf93874892e512e7755badf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 6
+  objThrowBone: {fileID: 6064725322055068616, guid: 7d7ec89f0cc378d44a9810acc68196ac, type: 3}
+  trsHead: {fileID: 1989978720}
+  trsObjDynamic: {fileID: 0}
+  skillManager: {fileID: 0}
 --- !u!1 &427901810
 GameObject:
   m_ObjectHideFlags: 0

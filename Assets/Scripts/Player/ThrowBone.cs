@@ -28,11 +28,16 @@ public class ThrowBone : MonoBehaviour
 
     private void Awake()
     {
-    }
+    }    
 
     public void SetPlayer(Player _player)
     {
-        player = _player;
+        player = _player;        
+    }
+
+    private void GetSkillDamageValue()
+    {
+        SkillDamage = player.SkillDamage;
     }
 
     // Start is called before the first frame update
@@ -45,6 +50,11 @@ public class ThrowBone : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         rigid.AddForce(force, ForceMode2D.Impulse);
         rigid.AddTorque(isRight ? -1.0f : 1.0f);
+
+        if (player != null)
+        {
+            player.SetPrepareAction(GetSkillDamageValue);
+        }
     }
 
     // Update is called once per frame

@@ -16,9 +16,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
-    [SerializeField] private float attackDamage = 5.0f;
-    [SerializeField] private float skillDamage = 3.0f;
-    [SerializeField] private float criticalChance = 10.0f;
+    private float attackDamage = 5.0f;
+    private float skillDamage = 3.0f;
+    private float criticalChance = 10.0f;
 
     private bool isJump = false;
     private bool canJump;
@@ -154,7 +154,6 @@ public class Player : MonoBehaviour
         CheckDash();
         SetAnimationParameter();
 
-        SkillA();
         SkillS();
     }
 
@@ -296,27 +295,6 @@ public class Player : MonoBehaviour
         animator.SetBool("IsGround", isGround);
     }
 
-    private void SkillA()
-    {
-        int count = trsObjDynamic.childCount;
-
-        if (Input.GetKeyDown(KeyCode.A) && count == 0 && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillA))
-        {
-            GameObject obj = Instantiate(objThrowBone, trsHead.position, Quaternion.identity, trsObjDynamic);
-            ThrowBone sc = obj.GetComponent<ThrowBone>();
-            sc.SetPlayer(this);
-
-            bool isRight = (transform.localScale.x == 1.0f);
-            Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
-
-            sc.SkillSetting(throwForce, isRight, cooldownTimeA);
-
-            animator.SetBool("IsThrow", true);            
-
-            skillManager.ActiveSkill(SkillManager.SkillType.SkillA);
-        }
-    }
-
     private void SkillS()
     {
         int count = trsObjDynamic.childCount;
@@ -399,14 +377,8 @@ public class Player : MonoBehaviour
     }
 
     // Animator 관련 함수들
-    private void EndThrow()
-    {
-        animator.SetBool("IsThrow", false);
-    }
-
     private void EndReborn()
     {
         animator.SetBool("IsRebone", false);                
     }
-
 }
