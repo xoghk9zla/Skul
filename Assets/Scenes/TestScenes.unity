@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 258602907}
   - component: {fileID: 258602908}
   - component: {fileID: 258602909}
+  - component: {fileID: 258602910}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -777,6 +778,22 @@ MonoBehaviour:
   cooldownTime: 6
   objThrowBone: {fileID: 6064725322055068616, guid: 7d7ec89f0cc378d44a9810acc68196ac, type: 3}
   trsHead: {fileID: 1989978720}
+  trsObjDynamic: {fileID: 0}
+  skillManager: {fileID: 0}
+--- !u!114 &258602910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258602901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c36eefaf3bd839428315c94fd4c7b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownTime: 3
+  objReboneEffect: {fileID: 3250163148291479901, guid: 5c8ad908a3e5c5341b898cc917664bf2, type: 3}
   trsObjDynamic: {fileID: 0}
   skillManager: {fileID: 0}
 --- !u!1 &427901810

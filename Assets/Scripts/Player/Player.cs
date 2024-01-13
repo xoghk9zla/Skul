@@ -153,8 +153,6 @@ public class Player : MonoBehaviour
         CheckGravity();
         CheckDash();
         SetAnimationParameter();
-
-        SkillS();
     }
 
     private void CheckGround()
@@ -295,34 +293,6 @@ public class Player : MonoBehaviour
         animator.SetBool("IsGround", isGround);
     }
 
-    private void SkillS()
-    {
-        int count = trsObjDynamic.childCount;
-
-        if (Input.GetKeyDown(KeyCode.S) && count != 0 && !animator.GetBool("IsRebone") && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillS))
-        {
-            Vector3 effectPos = transform.position;
-            effectPos.y += 0.2f;
-
-            GameObject obj = Instantiate(objReboneEffect, effectPos, Quaternion.identity, trsObjDynamic);
-            Transform trsThrowBorn = trsObjDynamic.GetChild(0);
-            Vector3 movePos = trsThrowBorn.position;
-
-            movePos.y += 0.05f;
-            transform.position = movePos;
-
-            Instantiate(objReboneEffect, transform.position, Quaternion.identity, trsObjDynamic);            
-
-            animator.SetBool("IsRebone", true);
-            animator.SetBool("IsThrow", false);                     
-
-            curHp -= 5.0f;
-            playerHp.SetPlayerHp(curHp, maxHp); // test
-            
-            skillManager.ActiveSkill(SkillManager.SkillType.SkillS);
-        }
-    }
-
     public void Hit(float _damage)
     {
         curHp -= _damage;
@@ -377,8 +347,4 @@ public class Player : MonoBehaviour
     }
 
     // Animator 관련 함수들
-    private void EndReborn()
-    {
-        animator.SetBool("IsRebone", false);                
-    }
 }
