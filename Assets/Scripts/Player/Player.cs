@@ -16,9 +16,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
-    private float attackDamage = 5.0f;
-    private float skillDamage = 3.0f;
     private float criticalChance = 10.0f;
+    private float attackDamage;
+    private float skillADamage;
+    private float skillSDamage;
 
     private bool isJump = false;
     private bool canJump;
@@ -40,13 +41,9 @@ public class Player : MonoBehaviour
     private bool canAttack;
     private bool isJumpAttack;    
 
-    [SerializeField] GameObject objThrowBone;
-    [SerializeField] GameObject objReboneEffect;
-    [SerializeField] Transform trsHead;
-    [SerializeField] Transform trsObjDynamic;
     [SerializeField] Transform trsObjEffect;
-    [SerializeField] float cooldownTimeA = 6.0f;
-    [SerializeField] float cooldownTimeS = 3.0f;
+    [SerializeField] float cooldown_SkillA;
+    [SerializeField] float cooldown_SkillS;
 
     [SerializeField] PlayerHp playerHp;
     [SerializeField] SkillManager skillManager;
@@ -96,12 +93,39 @@ public class Player : MonoBehaviour
         }
     }
 
-    public float SkillDamage
+    public float SkillADamage
     {
-        get => skillDamage;
+        get => skillADamage;
         set
         {
-            skillDamage = value;
+            skillADamage = value;
+        }
+    }
+    
+    public float SkillSDamage
+    {
+        get => skillSDamage;
+        set
+        {
+            skillSDamage = value;
+        }
+    }
+    
+    public float Cooldown_SkillA
+    {
+        get => cooldown_SkillA;
+        set
+        {
+            cooldown_SkillA = value;
+        }
+    }
+    
+    public float Cooldown_SkillS
+    {
+        get => cooldown_SkillS;
+        set
+        {
+            cooldown_SkillS = value;
         }
     }
 
@@ -246,8 +270,7 @@ public class Player : MonoBehaviour
                 dashTimer = 0.0f;
                 isDash = false;
                 animator.SetBool("IsDash", false);
-            }
-            
+            }            
         }
     }
     private void CheckGravity()
@@ -258,7 +281,6 @@ public class Player : MonoBehaviour
         }
 
         verticalVelocity -= gravity * Time.deltaTime;
-
         
         if (verticalVelocity < -10.0f)
         {
@@ -280,8 +302,7 @@ public class Player : MonoBehaviour
                 GameObject objJump = Instantiate(objJumpEffect, trsJump.position, Quaternion.identity, trsJump);
                 objJump.transform.parent = trsObjEffect;
             }
-        }
-        
+        }        
 
         rigid.velocity = new Vector2(rigid.velocity.x, verticalVelocity);
     }
@@ -309,7 +330,11 @@ public class Player : MonoBehaviour
     public void SetSkill(SkillManager _value)
     {
         skillManager = _value;
-        skillManager.SetSkill(cooldownTimeA, cooldownTimeS);
+        
+        if (prepareAction != null)
+        {
+            prepareAction.Invoke();
+        }
     }
 
     public void SetBuffStats(BuffManager.BuffList _buffType)
@@ -336,7 +361,8 @@ public class Player : MonoBehaviour
         }
         else if(_buffType == BuffManager.BuffList.SkillAttackDamage)
         {
-            skillDamage *= buffStats.SkillDamage;
+            SkillADamage *= buffStats.SkillDamage;
+            SkillSDamage *= buffStats.SkillDamage;
         }
 
         // 버프 적용 후 변수 초기화
@@ -345,6 +371,4 @@ public class Player : MonoBehaviour
             prepareAction.Invoke();
         }
     }
-
-    // Animator 관련 함수들
 }

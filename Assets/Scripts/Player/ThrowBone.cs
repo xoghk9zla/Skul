@@ -19,7 +19,7 @@ public class ThrowBone : MonoBehaviour
             skillDamage = value;
             if (player != null)
             {
-                player.SkillDamage = value;
+                player.SkillADamage = value;
             }
         }
     }
@@ -35,9 +35,9 @@ public class ThrowBone : MonoBehaviour
         player = _player;        
     }
 
-    private void GetSkillDamageValue()
+    private void GetSkillADamageValue()
     {
-        SkillDamage = player.SkillDamage;
+        SkillDamage = player.SkillADamage;
     }
 
     // Start is called before the first frame update
@@ -53,7 +53,7 @@ public class ThrowBone : MonoBehaviour
 
         if (player != null)
         {
-            player.SetPrepareAction(GetSkillDamageValue);
+            player.SetPrepareAction(GetSkillADamageValue);
         }
     }
 

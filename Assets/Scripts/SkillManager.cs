@@ -7,8 +7,7 @@ public class SkillManager : MonoBehaviour
 {
     public enum SkillType
     {
-        SkillA,
-        SkillS,
+        SkillA, SkillS,
     }
 
     public static SkillManager Instance;
@@ -19,16 +18,68 @@ public class SkillManager : MonoBehaviour
     [SerializeField] Image bgSkillA;
     [SerializeField] Image bgSkillS;
 
-    private float curCooldownTimeA;
-    private float curCooldownTimeS;
+    private float curCooldown_SkillA;
+    private float curCooldown_SkillS;
 
-    private float maxCooldownTimeA;
-    private float maxCooldownTimeS;
+    private float cooldown_SkillA;
+    private float cooldown_SkillS;
+
+    private float skillADamage;
+    private float skillSDamage;
+
+    public float SkillADamage
+    {
+        set
+        {
+            skillADamage = value;
+            if (player != null)
+            {
+                player.SkillADamage = value;
+            }
+        }
+    }
+
+    public float Cooldown_SkillA
+    {
+        set
+        {
+            cooldown_SkillA = value;
+            if (player != null)
+            {
+                player.Cooldown_SkillA = value;
+            }
+        }
+    }
+
+    public float SkillSDamage
+    {
+        set
+        {
+            skillSDamage = value;
+            if (player != null)
+            {
+                player.SkillSDamage = value;
+            }
+        }
+    }
+
+    public float Cooldown_SkillS
+    {
+        set
+        {
+            cooldown_SkillS = value;
+            if (player != null)
+            {
+                player.Cooldown_SkillS = value;
+            }
+        }
+    }
 
     private bool isActiveA;
     private bool isActiveS;
 
     [SerializeField] private GameObject objPlayer;
+    private Player player;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,7 +87,40 @@ public class SkillManager : MonoBehaviour
         Player objSc = objPlayer.GetComponent<Player>();
         objSc.SetSkill(this);
 
+        player = objSc.GetComponent<Player>();
+
         Instance = this;
+
+        curCooldown_SkillA = cooldown_SkillA;
+        curCooldown_SkillS = cooldown_SkillS;
+    }
+
+    private void Start()
+    {
+        player.SetPrepareAction(GetSkillADamageValue);
+        player.SetPrepareAction(GetSkillSDamageValue);
+        player.SetPrepareAction(GetCooldownSkillAValue);
+        player.SetPrepareAction(GetCooldownSkillSValue);
+    }
+
+    private void GetSkillADamageValue()
+    {
+        SkillADamage = player.SkillADamage;
+    }
+
+    private void GetSkillSDamageValue()
+    {
+        SkillSDamage = player.SkillSDamage;
+    }
+
+    private void GetCooldownSkillAValue()
+    {
+        Cooldown_SkillA = player.Cooldown_SkillA;
+    }    
+
+    private void GetCooldownSkillSValue()
+    {
+        Cooldown_SkillS = player.Cooldown_SkillS;
     }
 
     // Update is called once per frame
@@ -45,26 +129,17 @@ public class SkillManager : MonoBehaviour
         ActiveCoolTime();
     }
 
-    public void SetSkill(float _cooldownTimeA, float _cooldownTimeS)
-    {
-        maxCooldownTimeA = _cooldownTimeA;
-        maxCooldownTimeS = _cooldownTimeS;
-
-        curCooldownTimeA = maxCooldownTimeA;
-        curCooldownTimeS = maxCooldownTimeS;
-    }
-
     public void ActiveSkill(SkillType _type)
     {
         if (_type == SkillType.SkillA)
         {
             isActiveA = true;
-            curCooldownTimeA = maxCooldownTimeA;
+            curCooldown_SkillA = cooldown_SkillA;
         }
         else if (_type == SkillType.SkillS)
         {
             isActiveS = true;
-            curCooldownTimeS = maxCooldownTimeS;
+            curCooldown_SkillS = cooldown_SkillS;
         }
     }
 
@@ -72,25 +147,25 @@ public class SkillManager : MonoBehaviour
     {
         if (isActiveA)
         {
-            curCooldownTimeA -= Time.deltaTime;
-            bgSkillA.fillAmount = curCooldownTimeA / maxCooldownTimeA;
+            curCooldown_SkillA -= Time.deltaTime;
+            bgSkillA.fillAmount = curCooldown_SkillA / cooldown_SkillA;
 
-            if(curCooldownTimeA <= 0.0f)
+            if(curCooldown_SkillA <= 0.0f)
             {
                 bgSkillA.fillAmount = 0.0f;
-                curCooldownTimeA = 0.0f;
+                curCooldown_SkillA = 0.0f;
                 isActiveA = false;
             }
         }
         if (isActiveS)
         {
-            curCooldownTimeS -= Time.deltaTime;
-            bgSkillS.fillAmount = curCooldownTimeS / maxCooldownTimeS;
+            curCooldown_SkillS -= Time.deltaTime;
+            bgSkillS.fillAmount = curCooldown_SkillS / cooldown_SkillS;
 
-            if (curCooldownTimeS <= 0.0f)
+            if (curCooldown_SkillS <= 0.0f)
             {
                 bgSkillS.fillAmount = 0.0f;
-                curCooldownTimeS = 0.0f;
+                curCooldown_SkillS = 0.0f;
                 isActiveS = false;
             }
         }
@@ -117,14 +192,14 @@ public class SkillManager : MonoBehaviour
         if(_type == SkillType.SkillA)
         {
             bgSkillA.fillAmount = 0.0f;
-            curCooldownTimeA = 0.0f;
+            curCooldown_SkillA = 0.0f;
             isActiveA = false;
 
         }
         else if (_type == SkillType.SkillS)
         {
             bgSkillS.fillAmount = 0.0f;
-            curCooldownTimeS = 0.0f;
+            curCooldown_SkillS = 0.0f;
             isActiveS = false;
         }
     }    

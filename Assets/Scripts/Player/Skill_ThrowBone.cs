@@ -4,7 +4,32 @@ using UnityEngine;
 
 public class Skill_ThrowBone : MonoBehaviour
 {
-    [SerializeField] float cooldownTime = 6.0f;
+    [SerializeField] float cooldown_SkillA = 6.0f;
+    [SerializeField] float skillADamage = 3.0f;
+
+    public float SkillADamage
+    {
+        set
+        {
+            skillADamage = value;
+            if (player != null)
+            {
+                player.SkillADamage = value;
+            }
+        }
+    }
+    
+    public float Cooldown_SkillA
+    {
+        set
+        {
+            cooldown_SkillA = value;
+            if (player != null)
+            {
+                player.Cooldown_SkillA = value;
+            }
+        }
+    }
 
     [SerializeField] GameObject objThrowBone;
     [SerializeField] Transform trsHead;
@@ -18,6 +43,9 @@ public class Skill_ThrowBone : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
+
+        SkillADamage = skillADamage;
+        Cooldown_SkillA = cooldown_SkillA;
     }
 
     // Start is called before the first frame update
@@ -27,6 +55,19 @@ public class Skill_ThrowBone : MonoBehaviour
         trsObjDynamic = objDynamic.transform;
         
         skillManager = SkillManager.Instance;
+
+        player.SetPrepareAction(GetSkillADamageValue);
+        player.SetPrepareAction(GetCooldownSkillAValue);
+    }
+
+    private void GetSkillADamageValue()
+    {
+        SkillADamage = player.SkillADamage;
+    }
+
+    private void GetCooldownSkillAValue()
+    {
+        Cooldown_SkillA = player.Cooldown_SkillA;
     }
 
     // Update is called once per frame
@@ -48,7 +89,7 @@ public class Skill_ThrowBone : MonoBehaviour
             bool isRight = (transform.localScale.x == 1.0f);
             Vector2 throwForce = isRight ? new Vector2(5.0f, 0.0f) : new Vector2(-5.0f, 0.0f);
 
-            sc.SkillSetting(throwForce, isRight, cooldownTime);
+            sc.SkillSetting(throwForce, isRight, cooldown_SkillA);
 
             animator.SetBool("IsThrow", true);
 

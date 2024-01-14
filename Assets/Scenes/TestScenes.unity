@@ -739,13 +739,9 @@ MonoBehaviour:
   objJumpEffect: {fileID: 4639429607554320619, guid: f6828cc42fa0ff344981d4e865c421c4, type: 3}
   trsDash: {fileID: 1359079679}
   trsJump: {fileID: 739402745}
-  objThrowBone: {fileID: 6064725322055068616, guid: 7d7ec89f0cc378d44a9810acc68196ac, type: 3}
-  objReboneEffect: {fileID: 3250163148291479901, guid: 5c8ad908a3e5c5341b898cc917664bf2, type: 3}
-  trsHead: {fileID: 1989978720}
-  trsObjDynamic: {fileID: 124094691}
   trsObjEffect: {fileID: 523474369}
-  cooldownTimeA: 6
-  cooldownTimeS: 3
+  cooldown_SkillA: 6
+  cooldown_SkillS: 3
   playerHp: {fileID: 0}
   skillManager: {fileID: 0}
 --- !u!114 &258602908
@@ -775,7 +771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0531f48d2cf93874892e512e7755badf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 6
+  cooldown_SkillA: 6
+  skillADamage: 3
   objThrowBone: {fileID: 6064725322055068616, guid: 7d7ec89f0cc378d44a9810acc68196ac, type: 3}
   trsHead: {fileID: 1989978720}
   trsObjDynamic: {fileID: 0}
@@ -792,7 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c36eefaf3bd839428315c94fd4c7b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 3
+  cooldown_SkillS: 3
+  skillSDamage: 0
   objReboneEffect: {fileID: 3250163148291479901, guid: 5c8ad908a3e5c5341b898cc917664bf2, type: 3}
   trsObjDynamic: {fileID: 0}
   skillManager: {fileID: 0}
@@ -3134,6 +3132,10 @@ MonoBehaviour:
   imgSkillS: {fileID: 2014896843}
   bgSkillA: {fileID: 1770533681}
   bgSkillS: {fileID: 214439520}
+  cooldown_SkillA: 0
+  cooldown_SkillS: 0
+  skillADamage: 0
+  skillSDamage: 0
   objPlayer: {fileID: 258602901}
 --- !u!1 &1989978719
 GameObject:

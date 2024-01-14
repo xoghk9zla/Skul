@@ -4,7 +4,33 @@ using UnityEngine;
 
 public class Skill_ReBone : MonoBehaviour
 {
-    [SerializeField] float cooldownTime = 3.0f;
+    [SerializeField] float cooldown_SkillS = 3.0f;
+    [SerializeField] float skillSDamage = 0.0f;
+
+    public float SkillSDamage
+    {
+        set
+        {
+            skillSDamage = value;
+            if (player != null)
+            {
+                player.SkillSDamage = value;
+            }
+        }
+    }
+
+    public float Cooldown_SkillS
+    {
+        set
+        {
+            cooldown_SkillS = value;
+            if (player != null)
+            {
+                player.Cooldown_SkillS = value;
+            }
+        }
+    }
+
     [SerializeField] GameObject objReboneEffect;
     [SerializeField] Transform trsObjDynamic;
 
@@ -16,6 +42,9 @@ public class Skill_ReBone : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         player = GetComponent<Player>();
+
+        SkillSDamage = skillSDamage;
+        Cooldown_SkillS = cooldown_SkillS;
     }
 
     // Start is called before the first frame update
@@ -25,6 +54,19 @@ public class Skill_ReBone : MonoBehaviour
         trsObjDynamic = objDynamic.transform;
 
         skillManager = SkillManager.Instance;
+
+        player.SetPrepareAction(GetSkillSDamageValue);
+        player.SetPrepareAction(GetCooldownSkillSValue);
+    }
+
+    private void GetSkillSDamageValue()
+    {
+        SkillSDamage = player.SkillSDamage;
+    }
+
+    private void GetCooldownSkillSValue()
+    {
+        Cooldown_SkillS = player.Cooldown_SkillS;
     }
 
     // Update is called once per frame
