@@ -33,9 +33,9 @@ public class Skill_ThrowBone : MonoBehaviour
 
     [SerializeField] GameObject objThrowBone;
     [SerializeField] Transform trsHead;
-    [SerializeField] Transform trsObjDynamic;
+    private Transform trsObjDynamic;
 
-    [SerializeField] private SkillManager skillManager;
+    private SkillManager skillManager;
     private Animator animator;
     private Player player;
 

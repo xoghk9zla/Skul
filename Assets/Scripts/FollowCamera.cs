@@ -6,6 +6,12 @@ public class FollowCamera : MonoBehaviour
 {
     [SerializeField] private GameObject objPlayer;
 
+    private void Start()
+    {
+        GameManager manager = GameManager.Instance;
+        objPlayer = manager.GetPlayerObject();
+    }
+
     // Update is called once per frame
     void Update()
     {

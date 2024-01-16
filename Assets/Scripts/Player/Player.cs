@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 using UnityEngine.Events;
 using static Enemy;
@@ -24,12 +23,12 @@ public class Player : MonoBehaviour
     private bool isJump = false;
     private bool canJump;
     private float verticalVelocity; 
-    [SerializeField] private float gravity = 9.81f;
-    [SerializeField] private float jumpForce = 5.0f;
+    private float gravity = 9.81f;
+    private float jumpForce = 5.0f;
 
     private bool isDash = false;
     private float dashTimer = 0.0f;
-    [SerializeField] private float dashLimit = 0.2f;
+    private float dashLimit = 0.2f;
 
     [SerializeField] GameObject objDashEffect;
     [SerializeField] GameObject objJumpEffect;
@@ -162,9 +161,16 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         boxCollider2d = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
-        playerHp = GetComponent<PlayerHp>();
-        skillManager = GetComponent<SkillManager>();
         curHp = maxHp;
+
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
+    }
+
+    private void Start()
+    {
+        playerHp = PlayerHp.Instance;
+        skillManager = SkillManager.Instance;
     }
 
     // Update is called once per frame
@@ -324,6 +330,7 @@ public class Player : MonoBehaviour
     public void SetPlayerHp(PlayerHp _value)
     {
         playerHp = _value;
+        playerHp.SetPlayerHp(curHp, maxHp);
         playerHp.SetPlayerHp(curHp, maxHp);
     }
 

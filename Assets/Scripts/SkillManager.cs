@@ -84,10 +84,10 @@ public class SkillManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Player objSc = objPlayer.GetComponent<Player>();
-        objSc.SetSkill(this);
-
-        player = objSc.GetComponent<Player>();
+        GameManager manager = GameManager.Instance;
+        objPlayer = manager.GetPlayerObject();
+        player = objPlayer.GetComponent<Player>();
+        player.SetSkill(this);
 
         Instance = this;
 

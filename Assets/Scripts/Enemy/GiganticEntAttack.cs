@@ -37,7 +37,7 @@ public class GiganticEntAttack : MonoBehaviour
     [SerializeField] private GameObject objBullet;
     [SerializeField] private GameObject objStamp;
     [SerializeField] private Transform trsMouse;
-    [SerializeField] private Transform trsObjDynamic;
+    [SerializeField] private Transform trsObjEffect;
 
     private Animator animator;
 
@@ -53,8 +53,8 @@ public class GiganticEntAttack : MonoBehaviour
 
     private void Start()
     {
-        GameObject objDynamic = GameObject.Find("ObjectDynamic");
-        trsObjDynamic = objDynamic.transform;
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
 
         if (enemy != null)
         {
@@ -120,7 +120,7 @@ public class GiganticEntAttack : MonoBehaviour
     // 애니메이션 관련 함수
     private void MeleeAttack()
     {
-        Instantiate(objStamp, transform.position, Quaternion.identity, trsObjDynamic);
+        Instantiate(objStamp, transform.position, Quaternion.identity, trsObjEffect);
     }
 
     private void EndMeleeAttack()
@@ -133,7 +133,7 @@ public class GiganticEntAttack : MonoBehaviour
     {
         for (int i = 0; i < 6; ++i)
         {
-            Instantiate(objBullet, trsMouse.position, Quaternion.Euler(0.0f, 0.0f, 60.0f * i), trsObjDynamic);
+            Instantiate(objBullet, trsMouse.position, Quaternion.Euler(0.0f, 0.0f, 60.0f * i), trsObjEffect);
         }        
     }
 

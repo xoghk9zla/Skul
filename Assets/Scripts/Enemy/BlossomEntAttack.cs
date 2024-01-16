@@ -36,7 +36,7 @@ public class BlossomEntAttack : MonoBehaviour
 
     [SerializeField] private GameObject objBloosomSmoke;
     [SerializeField] private Transform trsBloosom;
-    [SerializeField] private Transform trsObjDynamic;
+    [SerializeField] private Transform trsObjEffect;
 
     private Animator animator;
 
@@ -52,8 +52,8 @@ public class BlossomEntAttack : MonoBehaviour
 
     private void Start()
     {
-        GameObject objDynamic = GameObject.Find("ObjectDynamic");
-        trsObjDynamic = objDynamic.transform;
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
 
         if (enemy != null)
         {
@@ -119,6 +119,6 @@ public class BlossomEntAttack : MonoBehaviour
         IsAttack = false;
         animator.SetBool("IsAttack", false);
 
-        Instantiate(objBloosomSmoke, trsBloosom.position, Quaternion.identity, trsObjDynamic);
+        Instantiate(objBloosomSmoke, trsBloosom.position, Quaternion.identity, trsObjEffect);
     }
 }

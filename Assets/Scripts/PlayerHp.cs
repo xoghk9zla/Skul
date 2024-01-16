@@ -5,9 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerHp : MonoBehaviour
 {
+    public static PlayerHp Instance;
+
     [SerializeField] Image imgFrontHp;
     [SerializeField] Image imgMiddleHp;
     [SerializeField] Text textHp;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

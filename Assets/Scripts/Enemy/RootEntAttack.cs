@@ -41,7 +41,7 @@ public class RootEntAttack : MonoBehaviour
 
     [SerializeField] private LayerMask ground;
     [SerializeField] private GameObject objRootAttackSign;
-    [SerializeField] Transform trsObjDynamic;
+    [SerializeField] Transform trsObjEffect;
 
     private Vector2 rootSpawnPos;
     private RaycastHit2D CheckGround;
@@ -71,8 +71,8 @@ public class RootEntAttack : MonoBehaviour
 
     private void Start()
     {
-        GameObject objDynamic = GameObject.Find("ObjectDynamic");
-        trsObjDynamic = objDynamic.transform;
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
 
         if(enemy != null) 
         {
@@ -109,8 +109,11 @@ public class RootEntAttack : MonoBehaviour
         {
             if (canAttack)
             {
+                // Player BoxCollider size의 중간 위치에서 raycast를 사용해 발 밑의 타일을 찾음
                 playerPos = recongnizeRange.transform.localPosition;
-                CheckGround = Physics2D.Raycast(playerPos + new Vector3(0, 0.15f, 0), Vector2.down, 0.9f, LayerMask.GetMask("Ground"));
+                playerPos.y += recongnizeRange.transform.gameObject.GetComponent<BoxCollider2D>().size.y / 2.0f;
+
+                CheckGround = Physics2D.Raycast(playerPos, Vector2.down, 0.9f, LayerMask.GetMask("Ground"));
        
                 if (CheckGround.transform != null && CheckGround.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                 {   
@@ -152,7 +155,7 @@ public class RootEntAttack : MonoBehaviour
 
         if(CheckGround.transform != null)
         {
-            Instantiate(objRootAttackSign, rootSpawnPos, Quaternion.identity, trsObjDynamic);
+            Instantiate(objRootAttackSign, rootSpawnPos, Quaternion.identity, trsObjEffect);
         }
     }
 }

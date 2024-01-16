@@ -5,17 +5,17 @@ using UnityEngine;
 public class RootAttackSign : MonoBehaviour
 {
     [SerializeField] private GameObject objRootAttack;
-    [SerializeField] Transform trsObjDynamic;
+    [SerializeField] Transform trsObjEffect;
 
     private void Start()
     {
-        GameObject objDynamic = GameObject.Find("ObjectDynamic");
-        trsObjDynamic = objDynamic.GetComponent<Transform>();
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.GetComponent<Transform>();
     }
 
     private void EndSign()
     {
-        Instantiate(objRootAttack, transform.position, Quaternion.identity, trsObjDynamic);
+        Instantiate(objRootAttack, transform.position, Quaternion.identity, trsObjEffect);
         Destroy(gameObject);
     }
 }
