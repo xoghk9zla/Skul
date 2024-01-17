@@ -153,6 +153,15 @@ public class Player : MonoBehaviour
                 Sc.GiveBuff(this);
             }
         }
+        else if (collision.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                SkulHead Sc = collision.GetComponent<SkulHead>();
+                GameManager.Instance.ChangeSkul(Sc.type, transform);
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     // Start is called before the first frame update

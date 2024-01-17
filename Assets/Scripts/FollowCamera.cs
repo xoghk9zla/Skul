@@ -6,8 +6,12 @@ public class FollowCamera : MonoBehaviour
 {
     [SerializeField] private GameObject objPlayer;
 
+    public static FollowCamera Instance;
+
     private void Start()
     {
+        Instance = this;
+
         GameManager manager = GameManager.Instance;
         objPlayer = manager.GetPlayerObject();
     }
@@ -24,4 +28,10 @@ public class FollowCamera : MonoBehaviour
         pos.z -= 2.0f;
         transform.position = pos;
     }
+
+    public void SetPlayer(GameObject _player)
+    {
+        objPlayer = _player;
+    }
+
 }

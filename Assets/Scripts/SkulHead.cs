@@ -6,6 +6,13 @@ public class SkulHead : MonoBehaviour
 {
     [SerializeField] GameObject InteractUI;
 
+    public enum SkulType
+    {
+        LittleBone, Hunter, GrimReaper,
+    }
+
+    public SkulType type;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -18,19 +25,7 @@ public class SkulHead : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            InteractUI.SetActive(false);
+            InteractUI.SetActive(false);           
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
