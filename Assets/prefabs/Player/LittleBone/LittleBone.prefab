@@ -373,6 +373,7 @@ MonoBehaviour:
   moveSpeed: 2
   maxHp: 150
   curHp: 150
+  attackDamage: 5
   objDashEffect: {fileID: 7668697091600025054, guid: 5c850a6439c6f6043b2cc9d16e151612, type: 3}
   objJumpEffect: {fileID: 4639429607554320619, guid: f6828cc42fa0ff344981d4e865c421c4, type: 3}
   trsDash: {fileID: 2064503352529190399}
@@ -385,6 +386,7 @@ MonoBehaviour:
   skulImg: {fileID: 21300000, guid: 0ff64b23b4d6c0a45bf4bc375500ec87, type: 3}
   skillAImg: {fileID: 21300000, guid: 0aaa8782ff24269468726004a28283e2, type: 3}
   skillSImg: {fileID: 21300000, guid: 69ad8c140dd5e69439936efb31bf81b9, type: 3}
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
 --- !u!114 &8962258190933861113
 MonoBehaviour:
   m_ObjectHideFlags: 0

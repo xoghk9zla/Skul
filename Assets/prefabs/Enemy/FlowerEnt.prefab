@@ -68,7 +68,7 @@ Transform:
   - {fileID: 1851869543646479310}
   - {fileID: 7704691169959075508}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8537748656517981305
 SpriteRenderer:
@@ -235,6 +235,7 @@ MonoBehaviour:
   maxHp: 50
   curHp: 0
   moveSpeed: 0.3
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
   enemyType: 3
 --- !u!114 &4591288467037860289
 MonoBehaviour:
@@ -251,7 +252,7 @@ MonoBehaviour:
   attackSpeed: 6
   objBloosomSmoke: {fileID: 2811385290650796420, guid: ceb1fb3678ecbe44bae1c8d0821ecc94, type: 3}
   trsBloosom: {fileID: 7704691169959075508}
-  trsObjDynamic: {fileID: 0}
+  trsObjEffect: {fileID: 0}
 --- !u!1 &7627597926537473076
 GameObject:
   m_ObjectHideFlags: 0

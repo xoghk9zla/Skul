@@ -94,8 +94,9 @@ public class PlayerAttack : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            float damage = CheckCritical();
             Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit(CheckCritical());
+            Sc.Hit(damage);
         }
     }
 

@@ -37,7 +37,7 @@ Transform:
   - {fileID: 3223579903200381788}
   - {fileID: 5742346777385022646}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1045746902516136370
 SpriteRenderer:
@@ -204,6 +204,7 @@ MonoBehaviour:
   maxHp: 160
   curHp: 0
   moveSpeed: 0
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
   enemyType: 4
 --- !u!114 &7148833708485837637
 MonoBehaviour:
@@ -221,7 +222,7 @@ MonoBehaviour:
   objBullet: {fileID: 6985386588306066307, guid: 5dee511bf5ae4eb419f8ca5aa8b7abba, type: 3}
   objStamp: {fileID: 7243159401574469593, guid: 46addb1115f9f8948ae5aeb4f84f0d8c, type: 3}
   trsMouse: {fileID: 5742346777385022646}
-  trsObjDynamic: {fileID: 0}
+  trsObjEffect: {fileID: 0}
 --- !u!1 &9151537447103611820
 GameObject:
   m_ObjectHideFlags: 0

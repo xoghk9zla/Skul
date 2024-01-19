@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 5601943195151586437}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1771661449971141947
 SpriteRenderer:
@@ -203,7 +203,7 @@ MonoBehaviour:
   maxHp: 50
   curHp: 0
   moveSpeed: 0.3
-  attackSpeed: 5
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
   enemyType: 2
 --- !u!114 &3932343032830870174
 MonoBehaviour:
@@ -222,7 +222,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   objRootAttackSign: {fileID: 8632934890444281993, guid: e5b3f8b5d6b164c4a821317976ebc258, type: 3}
-  trsObjDynamic: {fileID: 0}
+  trsObjEffect: {fileID: 0}
 --- !u!1 &7970415410824972272
 GameObject:
   m_ObjectHideFlags: 0

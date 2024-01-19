@@ -190,7 +190,7 @@ Transform:
   - {fileID: 3541766162644796364}
   - {fileID: 469165113614991615}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5577787963567996222
 SpriteRenderer:
@@ -330,10 +330,7 @@ MonoBehaviour:
   maxHp: 0
   curHp: 0
   moveSpeed: 0
-  damage: 0
-  attackSpeed: 0
-  recognizeRange: {fileID: 9191306965422383846}
-  boxCollider: {fileID: 0}
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
   enemyType: 0
 --- !u!50 &8875294531415158445
 Rigidbody2D:

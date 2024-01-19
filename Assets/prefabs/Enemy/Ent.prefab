@@ -205,7 +205,7 @@ Transform:
   - {fileID: 2673434314606209277}
   - {fileID: 9148293272056514048}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7534848325655063644
 SpriteRenderer:
@@ -372,7 +372,7 @@ MonoBehaviour:
   maxHp: 40
   curHp: 0
   moveSpeed: 0.3
-  attackSpeed: 3
+  damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
   enemyType: 1
 --- !u!114 &765650679527370920
 MonoBehaviour:
@@ -386,7 +386,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dd2650d13bca64a93d12f342aae2a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 1
   attackSpeed: 3
   attackBox: {fileID: 8213834101424799688}
   damage: 6

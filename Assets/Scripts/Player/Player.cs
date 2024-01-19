@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.5f;
     [SerializeField] private float maxHp = 150.0f;
     [SerializeField] private float curHp;
+    [SerializeField] private float attackDamage;
     private float criticalChance = 10.0f;
-    private float attackDamage;
     private float skillADamage;
     private float skillSDamage;
 
@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
     [SerializeField] public Sprite skulImg;
     [SerializeField] public Sprite skillAImg;
     [SerializeField] public Sprite skillSImg;
+
+    [SerializeField] GameObject damageFont;
 
     public bool IsGround
     {
@@ -337,6 +339,10 @@ public class Player : MonoBehaviour
     {
         curHp -= _damage;
         playerHp.SetPlayerHp(curHp, maxHp);
+
+        DamageFont Sc = damageFont.GetComponent<DamageFont>();
+        Sc.SetText(_damage, DamageFont.damageType.player);
+        Instantiate(damageFont, transform.position, Quaternion.identity, trsObjEffect);
     }
 
     // 플레이어 상태 설정 관련 함수

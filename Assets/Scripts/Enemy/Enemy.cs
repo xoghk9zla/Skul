@@ -21,6 +21,9 @@ public class Enemy : MonoBehaviour
     private bool isAttack = false;
     private bool canAttack = true;
 
+    [SerializeField] private GameObject damageFont;
+    private Transform trsObjEffect;
+
     // property º¯¼ö
     public bool IsAttack
     {
@@ -58,6 +61,9 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
         rigid = GetComponent<Rigidbody2D>();
+
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
 
         curHp = maxHp;
     }
@@ -133,6 +139,10 @@ public class Enemy : MonoBehaviour
         {
             curHp -= _damage;
         }
+
+        DamageFont Sc = damageFont.GetComponent<DamageFont>();
+        Sc.SetText(_damage, DamageFont.damageType.enemy);
+        Instantiate(damageFont, transform.position, Quaternion.identity, trsObjEffect);
     }
 
     public float GetMoveSpeed()
