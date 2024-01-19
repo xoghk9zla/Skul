@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private Player player;
     [SerializeField] private GameObject objPlayer;
     [SerializeField] private GameObject[] skulprefab;
 
@@ -21,8 +20,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<Player>();
-        objPlayer = player.gameObject;
         listSkul[0] = objPlayer;
     }
 

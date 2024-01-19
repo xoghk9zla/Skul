@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 8962258190933861113}
   - component: {fileID: 8132242336164381211}
   - component: {fileID: 7013651307177460032}
+  - component: {fileID: 1246621962071788132}
   m_Layer: 3
   m_Name: LittleBone
   m_TagString: Untagged
@@ -435,3 +436,15 @@ MonoBehaviour:
   objReboneEffect: {fileID: 3250163148291479901, guid: 5c8ad908a3e5c5341b898cc917664bf2, type: 3}
   trsObjDynamic: {fileID: 0}
   skillManager: {fileID: 0}
+--- !u!114 &1246621962071788132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8680139306426086448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4648e984958badc4ba41eda2021a547e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
