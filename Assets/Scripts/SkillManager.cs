@@ -203,4 +203,18 @@ public class SkillManager : MonoBehaviour
             isActiveS = false;
         }
     }    
+
+    public void SetImage(GameObject _player)
+    { 
+        player = _player.GetComponent<Player>();
+
+        imgSkul.sprite = player.skulImg;
+        imgSkillA.sprite = player.skillAImg;
+        imgSkillS.sprite = player.skillSImg;
+        bgSkillA.sprite = player.skillAImg;
+        bgSkillS.sprite = player.skillSImg;
+
+        bgSkillA.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
+        bgSkillS.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
+    }
 }

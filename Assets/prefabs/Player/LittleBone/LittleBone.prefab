@@ -211,7 +211,7 @@ Transform:
   - {fileID: 5154704009167627415}
   - {fileID: 6204353458600464280}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7020884329670699611
 SpriteRenderer:
@@ -382,6 +382,9 @@ MonoBehaviour:
   cooldown_SkillS: 3
   playerHp: {fileID: 0}
   skillManager: {fileID: 0}
+  skulImg: {fileID: 21300000, guid: 0ff64b23b4d6c0a45bf4bc375500ec87, type: 3}
+  skillAImg: {fileID: 21300000, guid: 0aaa8782ff24269468726004a28283e2, type: 3}
+  skillSImg: {fileID: 21300000, guid: 69ad8c140dd5e69439936efb31bf81b9, type: 3}
 --- !u!114 &8962258190933861113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,8 +416,6 @@ MonoBehaviour:
   skillADamage: 3
   objThrowBone: {fileID: 6064725322055068616, guid: 7d7ec89f0cc378d44a9810acc68196ac, type: 3}
   trsHead: {fileID: 8421208813552615884}
-  trsObjDynamic: {fileID: 0}
-  skillManager: {fileID: 0}
 --- !u!114 &7013651307177460032
 MonoBehaviour:
   m_ObjectHideFlags: 0

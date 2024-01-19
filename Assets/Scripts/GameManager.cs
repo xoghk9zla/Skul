@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
             }
         }
         FollowCamera.Instance.SetPlayer(objPlayer);
+        SkillManager.Instance.SetImage(objPlayer);
     }
 
     public GameObject GetPlayerObject()

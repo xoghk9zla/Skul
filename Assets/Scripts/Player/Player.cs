@@ -47,6 +47,10 @@ public class Player : MonoBehaviour
     [SerializeField] PlayerHp playerHp;
     [SerializeField] SkillManager skillManager;
 
+    [SerializeField] public Sprite skulImg;
+    [SerializeField] public Sprite skillAImg;
+    [SerializeField] public Sprite skillSImg;
+
     public bool IsGround
     {
         get => isGround;
