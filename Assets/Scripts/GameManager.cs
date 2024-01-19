@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    private Player player;
     [SerializeField] private GameObject objPlayer;
     [SerializeField] private GameObject[] skulprefab;
 
@@ -15,7 +16,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        Instance = this;        
+    }
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+        objPlayer = player.gameObject;
         listSkul[0] = objPlayer;
     }
 
@@ -24,23 +31,23 @@ public class GameManager : MonoBehaviour
         GameObject beforeSkul = objPlayer;
         if (_type == SkulHead.SkulType.LittleBone)
         {
-            Destroy(objPlayer);
+            objPlayer.SetActive(false); // Destory는 이 함수가 전부 실행 되고 난 뒤 작동
             objPlayer = Instantiate(skulprefab[0], _transform.position, Quaternion.identity);
 
             if (CheckEmptySkulList() != -1)
             {
-                listSkul[1] = listSkul[0];
+                listSkul[1] = beforeSkul;
                 listSkul[0] = objPlayer;
             }
         }
         else if (_type == SkulHead.SkulType.GrimReaper)
         {
-            Destroy(objPlayer);
+            objPlayer.SetActive(false);
             objPlayer = Instantiate(skulprefab[1], _transform.position, Quaternion.identity);
 
             if (CheckEmptySkulList() != -1)
             {
-                listSkul[1] = listSkul[0];
+                listSkul[1] = beforeSkul;
                 listSkul[0] = objPlayer;
             }
         }

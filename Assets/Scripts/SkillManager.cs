@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SkillManager : MonoBehaviour
 {
@@ -88,6 +89,8 @@ public class SkillManager : MonoBehaviour
         objPlayer = manager.GetPlayerObject();
         player = objPlayer.GetComponent<Player>();
         player.SetSkill(this);
+
+        SetImage(objPlayer);
 
         Instance = this;
 
