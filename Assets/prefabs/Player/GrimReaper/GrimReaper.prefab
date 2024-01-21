@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 385017603440427042}
   - component: {fileID: 2732192678610948739}
   - component: {fileID: 4564136569591610026}
+  - component: {fileID: 7232451872718473993}
   m_Layer: 3
   m_Name: GrimReaper
   m_TagString: Untagged
@@ -41,7 +42,7 @@ Transform:
   - {fileID: 6123014856839606405}
   - {fileID: 2635155027909824230}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5737906844453724652
 SpriteRenderer:
@@ -265,6 +266,18 @@ MonoBehaviour:
   objGateOfNether: {fileID: 7056796939377499664, guid: 6fc04a78820b89940b97f9c13ceee1d8, type: 3}
   trsObjDynamic: {fileID: 0}
   skillManager: {fileID: 0}
+--- !u!114 &7232451872718473993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424178039662602853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4648e984958badc4ba41eda2021a547e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784419954824489957
 GameObject:
   m_ObjectHideFlags: 0

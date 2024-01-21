@@ -11,11 +11,29 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject objPlayer;
     [SerializeField] private GameObject[] skulprefab;
 
+    [SerializeField] private GameObject objEnemy;
+
     [SerializeField] private GameObject[] listSkul = new GameObject[2];
+    private Player player;
+
+    private bool isSwitching;
+
+    public bool IsSwitching
+    {
+        set
+        {
+            isSwitching = value;
+            if (player != null)
+            {
+                player.IsSwitching = value;
+            }
+        }
+    }
 
     private void Awake()
     {
-        Instance = this;        
+        Instance = this;    
+        player = objPlayer.GetComponent<Player>();
     }
 
     private void Start()
@@ -52,12 +70,35 @@ public class GameManager : MonoBehaviour
         SkillManager.Instance.SetImage(objPlayer);
     }
 
+    public void SwitchSkul()
+    {
+        if (CheckEmptySkulList() == -1)
+        {
+            listSkul[1].transform.position = objPlayer.transform.position;
+            listSkul[1].transform.localScale = objPlayer.transform.localScale;
+
+            GameObject temp = listSkul[0];
+            listSkul[0] = listSkul[1];
+            listSkul[1] = temp;
+
+            objPlayer.SetActive(false);
+
+            objPlayer = listSkul[0];
+            objPlayer.SetActive(true);
+
+            IsSwitching = true;
+
+            FollowCamera.Instance.SetPlayer(objPlayer);
+            SkillManager.Instance.SetImage(objPlayer);
+        }
+    }
+
     public GameObject GetPlayerObject()
     {
         return objPlayer;
     }
 
-    private int CheckEmptySkulList()
+    public int CheckEmptySkulList()
     {
         for(int i = 0; i < listSkul.Length; i++)
         {
@@ -67,5 +108,14 @@ public class GameManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public bool CheckEmptyEnemyList()
+    {
+        if (objEnemy.transform.childCount != 0)
+        {
+            return false;
+        }
+        return true;
     }
 }

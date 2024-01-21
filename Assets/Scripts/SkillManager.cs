@@ -8,7 +8,7 @@ public class SkillManager : MonoBehaviour
 {
     public enum SkillType
     {
-        SkillA, SkillS,
+        SkillA, SkillS, Switch,
     }
 
     public static SkillManager Instance;
@@ -16,14 +16,19 @@ public class SkillManager : MonoBehaviour
     [SerializeField] Image imgSkul;
     [SerializeField] Image imgSkillA;
     [SerializeField] Image imgSkillS;
+    [SerializeField] Image bgSkul;
     [SerializeField] Image bgSkillA;
     [SerializeField] Image bgSkillS;
 
+    [SerializeField] GameObject btnSpace;
+
     private float curCooldown_SkillA;
     private float curCooldown_SkillS;
+    private float curCooldown_Switch;
 
     private float cooldown_SkillA;
     private float cooldown_SkillS;
+    private float cooldown_Switch;
 
     private float skillADamage;
     private float skillSDamage;
@@ -76,8 +81,21 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public float Cooldown_Switch
+    {
+        set
+        {
+            cooldown_Switch = value;
+            if (player != null)
+            {
+                player.Cooldown_Switch = value;
+            }
+        }
+    }
+
     private bool isActiveA;
     private bool isActiveS;
+    private bool isActiveSwitch;
 
     [SerializeField] private GameObject objPlayer;
     private Player player;
@@ -96,6 +114,7 @@ public class SkillManager : MonoBehaviour
 
         curCooldown_SkillA = cooldown_SkillA;
         curCooldown_SkillS = cooldown_SkillS;
+        curCooldown_Switch = cooldown_Switch;
     }
 
     private void Start()
@@ -104,6 +123,7 @@ public class SkillManager : MonoBehaviour
         player.SetPrepareAction(GetSkillSDamageValue);
         player.SetPrepareAction(GetCooldownSkillAValue);
         player.SetPrepareAction(GetCooldownSkillSValue);
+        player.SetPrepareAction(GetCooldownSwitchValue);
     }
 
     private void GetSkillADamageValue()
@@ -125,6 +145,11 @@ public class SkillManager : MonoBehaviour
     {
         Cooldown_SkillS = player.Cooldown_SkillS;
     }
+    
+    private void GetCooldownSwitchValue()
+    {
+        Cooldown_Switch = player.Cooldown_Switch;
+    }
 
     // Update is called once per frame
     void Update()
@@ -143,6 +168,11 @@ public class SkillManager : MonoBehaviour
         {
             isActiveS = true;
             curCooldown_SkillS = cooldown_SkillS;
+        }
+        else if(_type == SkillType.Switch)
+        {
+            isActiveSwitch = true;
+            curCooldown_Switch = cooldown_Switch;
         }
     }
 
@@ -172,6 +202,18 @@ public class SkillManager : MonoBehaviour
                 isActiveS = false;
             }
         }
+        if (isActiveSwitch)
+        {
+            curCooldown_Switch -= Time.deltaTime;
+            bgSkul.fillAmount = curCooldown_Switch / cooldown_Switch;
+
+            if (curCooldown_Switch <= 0.0f)
+            {
+                bgSkul.fillAmount = 0.0f;
+                curCooldown_Switch = 0.0f;
+                isActiveSwitch = false;
+            }
+        }
     }
 
     public bool GetActiveSkill(SkillType _type)
@@ -183,6 +225,10 @@ public class SkillManager : MonoBehaviour
         else if(_type == SkillType.SkillS)
         {
             return isActiveS;
+        }
+        else if(_type == SkillType.Switch)
+        {
+            return isActiveSwitch;
         }
         else
         {
@@ -205,18 +251,31 @@ public class SkillManager : MonoBehaviour
             curCooldown_SkillS = 0.0f;
             isActiveS = false;
         }
+        else if (_type == SkillType.Switch)
+        {
+            bgSkul.fillAmount = 0.0f;
+            curCooldown_Switch = 0.0f;
+            isActiveSwitch = false;
+        }
     }    
 
     public void SetImage(GameObject _player)
     { 
         player = _player.GetComponent<Player>();
 
+        if(GameManager.Instance.CheckEmptySkulList() == -1)
+        {
+            btnSpace.gameObject.SetActive(true);
+        }
+
         imgSkul.sprite = player.skulImg;
         imgSkillA.sprite = player.skillAImg;
         imgSkillS.sprite = player.skillSImg;
+        bgSkul.sprite = player.skulImg;
         bgSkillA.sprite = player.skillAImg;
         bgSkillS.sprite = player.skillSImg;
 
+        bgSkul.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
         bgSkillA.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
         bgSkillS.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
     }

@@ -38,11 +38,13 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool isAttack;
     private bool canAttack;
-    private bool isJumpAttack;    
+    private bool isJumpAttack;
+    private bool isSwitching = false;
 
     [SerializeField] Transform trsObjEffect;
     [SerializeField] float cooldown_SkillA;
     [SerializeField] float cooldown_SkillS;
+    [SerializeField] float cooldown_Switch;
 
     [SerializeField] PlayerHp playerHp;
     [SerializeField] SkillManager skillManager;
@@ -86,6 +88,15 @@ public class Player : MonoBehaviour
         set
         {
             isJumpAttack = value;
+        }
+    }
+
+    public bool IsSwitching
+    {
+        get => isSwitching;
+        set
+        {
+            isSwitching = value;
         }
     }
 
@@ -134,6 +145,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    public float Cooldown_Switch
+    {
+        get => cooldown_Switch;
+        set
+        {
+            cooldown_Switch = value;
+        }
+    }
+
     public float CriticalChance
     {
         get => criticalChance;
@@ -165,9 +185,7 @@ public class Player : MonoBehaviour
             {
                 SkulHead Sc = collision.GetComponent<SkulHead>();
                 GameManager.Instance.ChangeSkul(Sc.type, transform);
-                Destroy(collision.gameObject);
-
-                animator.SetBool("Switch", true);
+                Destroy(collision.gameObject);                
             }
         }
     }
@@ -187,7 +205,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerHp = PlayerHp.Instance;
-        skillManager = SkillManager.Instance;
+        skillManager = SkillManager.Instance;      
     }
 
     // Update is called once per frame
@@ -335,6 +353,7 @@ public class Player : MonoBehaviour
         animator.SetInteger("Horizontal", (int)moveDir.x);
         animator.SetFloat("Vertical", verticalVelocity);
         animator.SetBool("IsGround", isGround);
+        animator.SetBool("Switch", IsSwitching);
     }
 
     public void Hit(float _damage)

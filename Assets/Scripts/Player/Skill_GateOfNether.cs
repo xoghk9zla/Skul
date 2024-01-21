@@ -34,7 +34,7 @@ public class Skill_GateOfNether : MonoBehaviour
     }
 
     [SerializeField] GameObject objGateOfNether;
-    [SerializeField] Transform trsObjDynamic;
+    [SerializeField] Transform trsObjEffect;
 
     [SerializeField] private SkillManager skillManager;
     private Animator animator;
@@ -54,8 +54,8 @@ public class Skill_GateOfNether : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject objDynamic = GameObject.Find("ObjectDynamic");
-        trsObjDynamic = objDynamic.transform;
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsObjEffect = objEffect.transform;
 
         skillManager = SkillManager.Instance;
 
@@ -92,7 +92,7 @@ public class Skill_GateOfNether : MonoBehaviour
                 Vector3 spawnPos = checkGround.point;
                 spawnPos.y -= 0.15f;
 
-                Instantiate(objGateOfNether, spawnPos, Quaternion.identity, trsObjDynamic);
+                Instantiate(objGateOfNether, spawnPos, Quaternion.identity, trsObjEffect);
 
                 animator.SetBool("SkillGateOfNether", true);
 

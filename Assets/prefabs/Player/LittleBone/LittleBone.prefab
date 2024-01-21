@@ -212,7 +212,7 @@ Transform:
   - {fileID: 5154704009167627415}
   - {fileID: 6204353458600464280}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7020884329670699611
 SpriteRenderer:
@@ -382,6 +382,7 @@ MonoBehaviour:
   trsObjEffect: {fileID: 0}
   cooldown_SkillA: 6
   cooldown_SkillS: 3
+  cooldown_Switch: 0
   playerHp: {fileID: 0}
   skillManager: {fileID: 0}
   skulImg: {fileID: 21300000, guid: 0ff64b23b4d6c0a45bf4bc375500ec87, type: 3}
@@ -448,3 +449,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4648e984958badc4ba41eda2021a547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackBox: {fileID: 2440346620987909214}
+  cooldown_Switch: 10

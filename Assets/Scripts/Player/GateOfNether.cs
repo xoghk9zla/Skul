@@ -60,7 +60,7 @@ public class GateOfNether : MonoBehaviour
     {
         CheckAttackDelay();
         SetTimer();
-        tickDamage();
+        //tickDamage();
     }
 
     private void CheckAttackDelay()
