@@ -24,6 +24,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject damageFont;
     private Transform trsObjEffect;
 
+    [SerializeField] private GameObject part1;
+    [SerializeField] private GameObject part2;
+    [SerializeField] private GameObject part3;
+
     // property º¯¼ö
     public bool IsAttack
     {
@@ -138,6 +142,24 @@ public class Enemy : MonoBehaviour
         if(enemyType != enumEnemyType.ScareCrow)
         {
             curHp -= _damage;
+
+            if(curHp < 0)
+            {
+                Destroy(gameObject);
+
+                if(part1 != null)
+                {
+                    Instantiate(part1, transform.position, Quaternion.identity, trsObjEffect);
+                }
+                if (part2 != null)
+                {
+                    Instantiate(part2, transform.position, Quaternion.identity, trsObjEffect);
+                }
+                if (part3 != null)
+                {
+                    Instantiate(part3, transform.position, Quaternion.identity, trsObjEffect);
+                }
+            }
         }
 
         DamageFont Sc = damageFont.GetComponent<DamageFont>();

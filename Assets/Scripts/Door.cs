@@ -16,7 +16,10 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        objInteractUI.SetActive(true);
+        if (GameManager.Instance.CheckEmptyEnemyList())
+        {
+            objInteractUI.SetActive(true);
+        }        
     }
 
     private void OnTriggerStay2D(Collider2D collision)

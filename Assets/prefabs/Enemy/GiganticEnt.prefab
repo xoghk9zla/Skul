@@ -205,6 +205,9 @@ MonoBehaviour:
   curHp: 0
   moveSpeed: 0
   damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
+  part1: {fileID: 7145581974495368637, guid: b4856cd40ee94f74ab5bb1c781b5bb30, type: 3}
+  part2: {fileID: 7329096219175394822, guid: 39c03e103af8afb4a844ac3c57f5a53d, type: 3}
+  part3: {fileID: 7637739417219662496, guid: 7b5d99823a304e14ea92d5af4f1baf42, type: 3}
   enemyType: 4
 --- !u!114 &7148833708485837637
 MonoBehaviour:

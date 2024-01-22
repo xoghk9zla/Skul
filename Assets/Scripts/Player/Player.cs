@@ -371,7 +371,6 @@ public class Player : MonoBehaviour
     {
         playerHp = _value;
         playerHp.SetPlayerHp(curHp, maxHp);
-        playerHp.SetPlayerHp(curHp, maxHp);
     }
 
     public void SetSkill(SkillManager _value)
