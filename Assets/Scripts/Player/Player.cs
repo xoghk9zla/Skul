@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private bool canJump;
     private float verticalVelocity; 
     private float gravity = 9.81f;
-    private float jumpForce = 5.0f;
+    private float jumpForce = 6.0f;
 
     private bool isDash = false;
     private float dashTimer = 0.0f;
