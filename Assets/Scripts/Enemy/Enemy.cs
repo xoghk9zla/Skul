@@ -147,18 +147,9 @@ public class Enemy : MonoBehaviour
             {
                 Destroy(gameObject);
 
-                if(part1 != null)
-                {
-                    Instantiate(part1, transform.position, Quaternion.identity, trsObjEffect);
-                }
-                if (part2 != null)
-                {
-                    Instantiate(part2, transform.position, Quaternion.identity, trsObjEffect);
-                }
-                if (part3 != null)
-                {
-                    Instantiate(part3, transform.position, Quaternion.identity, trsObjEffect);
-                }
+                Instantiate(part1, transform.position, Quaternion.identity, trsObjEffect);           
+                Instantiate(part2, transform.position, Quaternion.identity, trsObjEffect);              
+                Instantiate(part3, transform.position, Quaternion.identity, trsObjEffect);                
             }
         }
 
