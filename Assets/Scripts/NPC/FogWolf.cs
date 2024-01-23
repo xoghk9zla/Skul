@@ -65,7 +65,28 @@ public class FogWolf : MonoBehaviour
             BuffUI.Instance.SetBuff(bufftype, 0.0f);
 
             objBuffText.gameObject.SetActive(true);
-            buffText.text = $"{bufftype.ToString()}";
+
+            if (bufftype == BuffManager.BuffList.AttackSpeed)
+            {
+                buffText.text = "공격 속도 증가";
+            }
+            else if (bufftype == BuffManager.BuffList.CriticalChance)
+            {
+                buffText.text = "치명타 확률 증가";
+            }
+            else if (bufftype == BuffManager.BuffList.Health)
+            {
+                buffText.text = "최대 체력 증가";
+            }
+            else if (bufftype == BuffManager.BuffList.MeleeAttackDamage)
+            {
+                buffText.text = "평타 데미지 증가";
+            }
+            else if (bufftype == BuffManager.BuffList.SkillAttackDamage)
+            {
+                buffText.text = "스킬 데미지 증가";
+            }
+
         }
         
     }
