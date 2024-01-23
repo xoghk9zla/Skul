@@ -169,6 +169,14 @@ public class Player : MonoBehaviour
         prepareAction += _action;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("JumpMushroom") && !IsGround)
+        {
+            verticalVelocity = jumpForce * 3.0f;
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
@@ -242,7 +250,7 @@ public class Player : MonoBehaviour
 
     private void Moving()
     {
-        if (isDash)
+        if (isDash && IsSwitching)
         {
             return;
         }
