@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] private GameObject gameoverUI;
+
     [SerializeField] private GameObject objPlayer;
     [SerializeField] private GameObject[] skulprefab;
 
@@ -117,5 +119,11 @@ public class GameManager : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void GameOver()
+    {
+        gameoverUI.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 }

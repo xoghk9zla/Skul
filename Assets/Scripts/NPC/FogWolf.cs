@@ -2,12 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FogWolf : MonoBehaviour
 {
     private bool isGiveBuff = false;
     [SerializeField] GameObject InteractUI;
+    [SerializeField] GameObject objBuffText;
+    [SerializeField] TextMeshPro buffText;
 
     [SerializeField] BuffManager buffManager;
     [SerializeField] Transform trsBuffUI;
@@ -59,6 +63,9 @@ public class FogWolf : MonoBehaviour
 
             GameObject obj = Instantiate(objBuffUI, trsBuffUI.position, Quaternion.identity, trsBuffUI);            
             BuffUI.Instance.SetBuff(bufftype, 0.0f);
+
+            objBuffText.gameObject.SetActive(true);
+            buffText.text = $"{bufftype.ToString()}";
         }
         
     }

@@ -369,6 +369,12 @@ public class Player : MonoBehaviour
         curHp -= _damage;
         playerHp.SetPlayerHp(curHp, maxHp);
 
+        if(curHp < 0)
+        {
+            Destroy(gameObject);
+            GameManager.Instance.GameOver();
+        }
+
         DamageFont Sc = damageFont.GetComponent<DamageFont>();
         Sc.SetText(_damage, DamageFont.damageType.player);
         Instantiate(damageFont, transform.position, Quaternion.identity, trsObjEffect);
