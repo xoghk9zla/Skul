@@ -155,7 +155,13 @@ public class Enemy : MonoBehaviour
 
         DamageFont Sc = damageFont.GetComponent<DamageFont>();
         Sc.SetText(_damage, DamageFont.damageType.enemy);
-        Instantiate(damageFont, transform.position, Quaternion.identity, trsObjEffect);
+
+        Vector3 SpawnPos = hitBox.bounds.center;
+        float rangeX = hitBox.bounds.size.x;
+        rangeX = Random.Range((rangeX / 2) * -1.0f, rangeX / 2) + hitBox.bounds.center.x;
+        SpawnPos.x = rangeX;
+
+        Instantiate(damageFont, SpawnPos, Quaternion.identity, trsObjEffect);
     }
 
     public float GetMoveSpeed()
