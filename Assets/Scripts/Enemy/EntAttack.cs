@@ -44,6 +44,18 @@ public class EntAttack : MonoBehaviour
 
     private Vector3 playerPos;
 
+    private void OnDrawGizmos()
+    {
+        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(0.6f, 0.5f),
+            0.0f, Vector2.up, 0.3f, LayerMask.GetMask("Player"));
+        Vector3 pos = transform.localPosition;
+        pos.y += 0.4f;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(pos, new Vector2(0.6f, 0.5f));
+
+    }
+
     public void TriggerEnter(enumColliders _type, Collider2D _collision)
     {
         if (_type == enumColliders.Attack && _collision.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -90,9 +102,9 @@ public class EntAttack : MonoBehaviour
 
     private void RecognizePlayer()
     {
-        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(0.6f, 0.5f),
-            0.0f, Vector2.up, 0.3f, LayerMask.GetMask("Player"));
-        
+        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.position, new Vector2(0.6f, 0.5f),
+            0.0f, Vector2.up, 0.4f, LayerMask.GetMask("Player"));        
+
         if (recongnizeRange.transform != null && recongnizeRange.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             if (canAttack)
