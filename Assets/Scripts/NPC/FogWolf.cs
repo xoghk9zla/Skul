@@ -21,7 +21,7 @@ public class FogWolf : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") && !isGiveBuff)
         {
             InteractUI.SetActive(true);
         }
@@ -86,7 +86,7 @@ public class FogWolf : MonoBehaviour
             {
                 buffText.text = "스킬 데미지 증가";
             }
-
+            InteractUI.SetActive(false);
         }
         
     }
