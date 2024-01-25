@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject damageFont;
     private Transform trsObjEffect;
 
+    private float turnDelay = 1.0f;
+    private bool canTurn = true;
+
     [SerializeField] private GameObject part1;
     [SerializeField] private GameObject part2;
     [SerializeField] private GameObject part3;
@@ -86,7 +89,9 @@ public class Enemy : MonoBehaviour
     {
         CheckGround();
         Moving();
+        CheckPlayer();
 
+        TurnTimer();
         SetAnimationParameter();
     }
 
@@ -109,6 +114,43 @@ public class Enemy : MonoBehaviour
             isGround = true;
         }
 
+        RaycastHit2D wallCheck = Physics2D.Raycast(hitBox.bounds.center, Vector2.right * transform.localScale.x, 0.35f, LayerMask.GetMask("Ground"));
+
+        if (wallCheck.transform != null && wallCheck.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            Turn();
+        }
+
+    }
+
+    private void CheckPlayer()
+    {
+        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(2.0f, 0.5f),
+            0.0f, Vector2.up, 0.3f, LayerMask.GetMask("Player"));
+        
+        if(recongnizeRange.transform != null && recongnizeRange.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Vector3 dir = recongnizeRange.transform.position - transform.localPosition;
+            if(dir.normalized.x * transform.localScale.x < 0.0f && enemyType != enumEnemyType.ScareCrow && enemyType != enumEnemyType.GiganticEnt && canTurn)
+            {
+                Turn();
+                canTurn = false;
+            }
+        }
+    }
+
+    private void TurnTimer()
+    {
+        if (!canTurn)
+        {
+            turnDelay -= Time.deltaTime;
+
+            if (turnDelay < 0)
+            {
+                turnDelay = 1.0f;
+                canTurn = true;
+            }
+        }
     }
 
     private void Moving()
