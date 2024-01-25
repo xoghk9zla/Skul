@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4455982309033623504}
   - component: {fileID: 1593381251670477679}
   - component: {fileID: 7739488247725706192}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlossomEnt_AttackSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

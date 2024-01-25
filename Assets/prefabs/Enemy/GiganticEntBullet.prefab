@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3432663018221928828}
   - component: {fileID: 2457692758832942303}
   - component: {fileID: 8148008587691344789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GiganticEntBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

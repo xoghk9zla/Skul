@@ -179,21 +179,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
                 FogWolf Sc = collision.GetComponent<FogWolf>();
                 Sc.GiveBuff(this);
             }
-        }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
-        {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (collision.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
             {
                 SkulHead Sc = collision.GetComponent<SkulHead>();
                 GameManager.Instance.ChangeSkul(Sc.type, transform);
-                Destroy(collision.gameObject);                
+                Destroy(collision.gameObject);
             }
         }
     }

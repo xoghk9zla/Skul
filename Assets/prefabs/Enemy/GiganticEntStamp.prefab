@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2267279315255539289}
   - component: {fileID: 918956478697280747}
   - component: {fileID: 115839072682125377}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GiganticEntStamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}

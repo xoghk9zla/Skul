@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class DamageFont : MonoBehaviour
 {
     [SerializeField] private TextMeshPro damageText;
-    private float lifeTime = 4.0f;
+    private float lifeTime = 1.0f;
 
     public enum damageType
     {

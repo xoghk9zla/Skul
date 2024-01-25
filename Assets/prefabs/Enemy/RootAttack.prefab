@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8297349448033112784}
   - component: {fileID: 8799639865845306935}
   - component: {fileID: 7354324157740281950}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RootAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
