@@ -247,7 +247,7 @@ public class Player : MonoBehaviour
 
     private void Moving()
     {
-        if (isDash || IsSwitching)
+        if (isDash || IsSwitching || IsAttack)
         {
             return;
         }

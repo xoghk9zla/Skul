@@ -159,11 +159,13 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && !isAttack && isGround)
         {
             IsAttack = true;
+            attackCollider.enabled = false;
+            animator.SetInteger("Horizontal", 0);
             animator.SetBool("IsAttack", true);
-
         }
         else if (Input.GetKeyDown(KeyCode.X) && isAttack && isGround && animator.GetCurrentAnimatorStateInfo(0).IsName("AttackA"))
         {
+            attackCollider.enabled = false;
             animator.SetBool("ComboAttack", true);
         }
         else if (Input.GetKeyDown(KeyCode.X) && !isJumpAttack && !isGround)
