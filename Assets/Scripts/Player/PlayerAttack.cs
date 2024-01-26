@@ -159,7 +159,7 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && !isAttack && isGround)
         {
             IsAttack = true;
-            attackCollider.enabled = false;
+            attackCollider.enabled = false; // 애니메이션 처리 함수에서 다시 켜줌
             animator.SetInteger("Horizontal", 0);
             animator.SetBool("IsAttack", true);
         }

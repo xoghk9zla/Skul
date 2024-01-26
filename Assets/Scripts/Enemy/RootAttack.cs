@@ -5,14 +5,17 @@ using UnityEngine;
 public class RootAttack : MonoBehaviour
 {
     [SerializeField] private float damage;
+    private bool canAttack = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player") && canAttack)
         {
             Player Sc = collision.gameObject.GetComponent<Player>();
 
             Sc.Hit(damage);
+
+            canAttack = false;
         }
     }
 }
