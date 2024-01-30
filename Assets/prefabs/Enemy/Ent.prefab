@@ -205,7 +205,7 @@ Transform:
   - {fileID: 2673434314606209277}
   - {fileID: 9148293272056514048}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7534848325655063644
 SpriteRenderer:
@@ -373,9 +373,15 @@ MonoBehaviour:
   curHp: 0
   moveSpeed: 0.3
   damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
-  part1: {fileID: 7637739417219662496, guid: 7b5d99823a304e14ea92d5af4f1baf42, type: 3}
-  part2: {fileID: 7637739417219662496, guid: 7b5d99823a304e14ea92d5af4f1baf42, type: 3}
-  part3: {fileID: 7329096219175394822, guid: 39c03e103af8afb4a844ac3c57f5a53d, type: 3}
+  parts:
+  - {fileID: 4067303645583476061, guid: a847319cc7b0ed845932cf0e06ddf58c, type: 3}
+  - {fileID: 3241676305401731239, guid: 763d34ea863f87a448829eed791bd737, type: 3}
+  - {fileID: 7386243905383490778, guid: ad824554fcf37524eb1fe18d094414bb, type: 3}
+  - {fileID: 912909201803588353, guid: f3bb9a1409790a54089a6143daaf879f, type: 3}
+  - {fileID: 5378829908811190041, guid: 6d1c0908c39970840b17fe28c30f14c1, type: 3}
+  - {fileID: 4405897082606758472, guid: df677c77032f3aa469ae17d0bc7f33d6, type: 3}
+  - {fileID: 8666147010686977077, guid: 3a9b9a1b60e278944996806419a1ed67, type: 3}
+  - {fileID: 1522936480090090056, guid: 8f06b645de8471940a191a60d15fb07c, type: 3}
   enemyType: 1
 --- !u!114 &765650679527370920
 MonoBehaviour:

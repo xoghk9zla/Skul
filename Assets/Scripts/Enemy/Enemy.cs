@@ -27,9 +27,7 @@ public class Enemy : MonoBehaviour
     private float turnDelay = 1.0f;
     private bool canTurn = true;
 
-    [SerializeField] private GameObject part1;
-    [SerializeField] private GameObject part2;
-    [SerializeField] private GameObject part3;
+    [SerializeField] private GameObject[] parts;
 
     // property º¯¼ö
     public bool IsAttack
@@ -185,7 +183,7 @@ public class Enemy : MonoBehaviour
         {
             curHp -= _damage;
 
-            if(curHp < 0)
+            if(curHp <= 0)
             {
                 Death();
             }
@@ -204,9 +202,10 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
-        Instantiate(part1, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
-        Instantiate(part2, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
-        Instantiate(part3, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
+        foreach(var part in parts)
+        {
+            Instantiate(part, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
+        }
 
         Destroy(gameObject);
     }

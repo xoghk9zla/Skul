@@ -68,7 +68,7 @@ Transform:
   - {fileID: 1851869543646479310}
   - {fileID: 7704691169959075508}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8537748656517981305
 SpriteRenderer:
@@ -236,9 +236,14 @@ MonoBehaviour:
   curHp: 0
   moveSpeed: 0.3
   damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
-  part1: {fileID: 7329096219175394822, guid: 39c03e103af8afb4a844ac3c57f5a53d, type: 3}
-  part2: {fileID: 7329096219175394822, guid: 39c03e103af8afb4a844ac3c57f5a53d, type: 3}
-  part3: {fileID: 7329096219175394822, guid: 39c03e103af8afb4a844ac3c57f5a53d, type: 3}
+  parts:
+  - {fileID: 1018443484442303825, guid: a1f00346f1698ee43ad39eadcf0e2508, type: 3}
+  - {fileID: 1411174664967118764, guid: d19665a7f79109144a8913341ad98565, type: 3}
+  - {fileID: 4284554042202827064, guid: 6d14d4e433022104da684295e514f495, type: 3}
+  - {fileID: 2935234321793157234, guid: 8559ac9551f32714b9db731a74c91bde, type: 3}
+  - {fileID: 3249447046021320844, guid: f352ca73a4897694fa72eac910a9392a, type: 3}
+  - {fileID: 5258508659624954110, guid: 2b2ef497d2e50d44fa4e9096554d9009, type: 3}
+  - {fileID: 6558726988163885910, guid: 4d9cc18124697ed459bcf7ac2bde571f, type: 3}
   enemyType: 3
 --- !u!114 &4591288467037860289
 MonoBehaviour:
