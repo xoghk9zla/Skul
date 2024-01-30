@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Parts : MonoBehaviour
 {
-    float lifeTime = 10.0f;
+    private float lifeTime = 10.0f;
 
     // Update is called once per frame
     void Update()
     {
-        lifeTime -= Time.time;
+        lifeTime -= Time.deltaTime;
 
         if (lifeTime < 0)
         {

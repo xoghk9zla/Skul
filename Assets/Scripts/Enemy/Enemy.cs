@@ -187,11 +187,7 @@ public class Enemy : MonoBehaviour
 
             if(curHp < 0)
             {
-                Destroy(gameObject);
-
-                Instantiate(part1, transform.position, Quaternion.identity, trsObjEffect);           
-                Instantiate(part2, transform.position, Quaternion.identity, trsObjEffect);              
-                Instantiate(part3, transform.position, Quaternion.identity, trsObjEffect);                
+                Death();
             }
         }
 
@@ -204,6 +200,15 @@ public class Enemy : MonoBehaviour
         SpawnPos.x = rangeX;
 
         Instantiate(damageFont, SpawnPos, Quaternion.identity, trsObjEffect);
+    }
+
+    private void Death()
+    {
+        Instantiate(part1, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
+        Instantiate(part2, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
+        Instantiate(part3, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
+
+        Destroy(gameObject);
     }
 
     public float GetMoveSpeed()
