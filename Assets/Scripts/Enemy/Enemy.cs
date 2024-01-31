@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     private BoxCollider2D hitBox;
     private Rigidbody2D rigid;
 
+    private EnemyHP enemyHP;
+
     [SerializeField] LayerMask ground;
     [SerializeField] private BoxCollider2D checkGround;
     [SerializeField] private bool isGround = false;
@@ -65,7 +67,7 @@ public class Enemy : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         hitBox = GetComponent<BoxCollider2D>();
-        rigid = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody2D>();        
 
         GameObject objEffect = GameObject.Find("ObjectEffect");
         trsObjEffect = objEffect.transform;
@@ -80,6 +82,11 @@ public class Enemy : MonoBehaviour
             isHit = true;
             animator.SetBool("IsHit", true);
         }
+    }
+
+    private void Start()
+    {
+        enemyHP = GetComponentInChildren<EnemyHP>();
     }
 
     // Update is called once per frame
@@ -182,8 +189,9 @@ public class Enemy : MonoBehaviour
         if(enemyType != enumEnemyType.ScareCrow)
         {
             curHp -= _damage;
+            enemyHP.SetPlayerHp(curHp, maxHp);
 
-            if(curHp <= 0)
+            if (curHp <= 0)
             {
                 Death();
             }
