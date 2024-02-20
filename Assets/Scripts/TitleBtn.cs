@@ -7,7 +7,7 @@ public class TitleBtn : MonoBehaviour
 {
     public void BtnStart()
     {
-        SceneManager.LoadScene("TestScenes");
+        SceneManager.LoadScene("MainScenes");
     }
 
     public void BtnExit()
