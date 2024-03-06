@@ -9,7 +9,7 @@ public class Item_DeathShadowSpirit : MonoBehaviour
 
     [SerializeField] GameObject prefabDeathShadowSpirit;
     GameObject objDeathShadowSpirit;
-
+    Transform trsObjSummon;
 
     public bool IsEquip
     {
@@ -26,6 +26,8 @@ public class Item_DeathShadowSpirit : MonoBehaviour
     private void Awake()
     {
         item = GetComponent<Item>();
+        GameObject objSummon = GameObject.Find("ObjectSummon");
+        trsObjSummon = objSummon.transform;
     }
 
     // Start is called before the first frame update
@@ -46,7 +48,7 @@ public class Item_DeathShadowSpirit : MonoBehaviour
         {
             if(objDeathShadowSpirit == null)
             {
-                objDeathShadowSpirit = Instantiate(prefabDeathShadowSpirit);
+                objDeathShadowSpirit = Instantiate(prefabDeathShadowSpirit, trsObjSummon);
             }
             else
             {
