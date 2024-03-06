@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8636750576762808413}
   - component: {fileID: 5166995462381049134}
   - component: {fileID: 3882628121857254029}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Item_DeathShadowSpirit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

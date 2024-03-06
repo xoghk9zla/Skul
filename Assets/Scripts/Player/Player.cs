@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject damageFont;
 
+    public GameObject objInteraction;
+
     public bool IsGround
     {
         get => isGround;
@@ -177,24 +179,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("NPC"))
-            {
-                FogWolf Sc = collision.GetComponent<FogWolf>();
-                Sc.GiveBuff(this);
-            }
-            if (collision.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
-            {
-                SkulHead Sc = collision.GetComponent<SkulHead>();
-                GameManager.Instance.ChangeSkul(Sc.type, transform);
-                Destroy(collision.gameObject);
-            }
-        }
-    }
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -222,6 +206,7 @@ public class Player : MonoBehaviour
         Jumping();
         CheckGravity();
         CheckDash();
+        Interaction();
         SetAnimationParameter();
     }
 
@@ -351,6 +336,29 @@ public class Player : MonoBehaviour
         }        
 
         rigid.velocity = new Vector2(rigid.velocity.x, verticalVelocity);
+    }
+
+    private void Interaction()
+    {
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            if(objInteraction.gameObject.layer == LayerMask.NameToLayer("Item"))
+            {
+                Item sc = objInteraction.gameObject.GetComponent<Item>();
+                sc.Interaction();
+            }
+            if (objInteraction.gameObject.layer == LayerMask.NameToLayer("NPC"))
+            {
+                FogWolf Sc = objInteraction.GetComponent<FogWolf>();
+                Sc.GiveBuff(this);
+            }
+            if (objInteraction.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
+            {
+                SkulHead Sc = objInteraction.GetComponent<SkulHead>();
+                GameManager.Instance.ChangeSkul(Sc.type, transform);
+                Destroy(objInteraction.gameObject);
+            }
+        }
     }
 
     private void SetAnimationParameter()

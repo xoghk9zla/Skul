@@ -35,11 +35,10 @@ public class Item : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            InventoryManager.Instance.AddItem(this);
-            gameObject.SetActive(false);    // InventoryManager의 리스트에 들어가 있기 위함
-            //Destroy(gameObject);
+            Player sc = collision.gameObject.GetComponent<Player>();
+            sc.objInteraction = this.gameObject;
         }
     }
 
@@ -54,5 +53,12 @@ public class Item : MonoBehaviour
     public void ActionInvoke()
     {
         prepareAction.Invoke();
+    }
+
+    public void Interaction()
+    {
+        InventoryManager.Instance.AddItem(this);
+        gameObject.SetActive(false);    // InventoryManager의 리스트에 들어가 있기 위함
+        //Destroy(gameObject);
     }
 }
