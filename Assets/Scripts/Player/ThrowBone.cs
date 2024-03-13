@@ -26,10 +26,6 @@ public class ThrowBone : MonoBehaviour
 
     Player player;
 
-    private void Awake()
-    {
-    }    
-
     public void SetPlayer(Player _player)
     {
         player = _player;        
