@@ -26,8 +26,8 @@ public class SkillManager : MonoBehaviour
     private float curCooldown_SkillS;
     private float curCooldown_Switch;
 
-    private float cooldown_SkillA;
-    private float cooldown_SkillS;
+    [SerializeField] private float cooldown_SkillA;
+    [SerializeField] private float cooldown_SkillS;
     private float cooldown_Switch;
 
     private float skillADamage;
@@ -278,5 +278,14 @@ public class SkillManager : MonoBehaviour
         bgSkul.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
         bgSkillA.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
         bgSkillS.color = new Color(40.0f / 255.0f, 40.0f / 255.0f, 40.0f / 255.0f);
+    }
+
+    public void SetSkill(GameObject _player)
+    {
+        player = _player.GetComponent<Player>();
+
+        SkillSDamage = player.SkillSDamage;
+        Cooldown_SkillA = player.Cooldown_SkillA;
+        Cooldown_SkillS = player.Cooldown_SkillS;
     }
 }

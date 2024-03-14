@@ -194,7 +194,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         playerHp = PlayerHp.Instance;
-        skillManager = SkillManager.Instance;      
+        skillManager = SkillManager.Instance;
     }
 
     // Update is called once per frame

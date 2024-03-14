@@ -9,6 +9,8 @@ public class Skill_Harvest : MonoBehaviour
     [SerializeField] float cooldown_SkillA = 15.0f;
     [SerializeField] float skillADamage = 30.0f;
 
+    RaycastHit2D[] recongnizeBox;
+
     public float SkillADamage
     {
         set
@@ -83,7 +85,7 @@ public class Skill_Harvest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && !skillManager.GetActiveSkill(SkillManager.SkillType.SkillA))
         {           
             animator.SetBool("SkillHarvest", true);
-
+            Time.timeScale = 0.0f;
             skillManager.ActiveSkill(SkillManager.SkillType.SkillA);
         }
     }
@@ -94,8 +96,12 @@ public class Skill_Harvest : MonoBehaviour
         // 범위 내 적 찾아서 데미지
         var height = Camera.main.orthographicSize / 2;
         var width = height * Camera.main.aspect;
-        RaycastHit2D[] recongnizeBox = Physics2D.BoxCastAll(Camera.main.gameObject.transform.position, new Vector2(width, height), 0.0f, Vector2.down, 0.8f, LayerMask.GetMask("Enemy"));
+        recongnizeBox = Physics2D.BoxCastAll(Camera.main.gameObject.transform.position, new Vector2(width, height), 0.0f, Vector2.down, 0.8f, LayerMask.GetMask("Enemy"));        
+    }
 
+    
+    private void EndHarvest()
+    {
         foreach (RaycastHit2D enemy in recongnizeBox)
         {
             Enemy Sc = enemy.collider.gameObject.GetComponent<Enemy>();
@@ -106,11 +112,8 @@ public class Skill_Harvest : MonoBehaviour
 
             Instantiate(objHarvestHit, effectPos, Quaternion.identity, Sc.transform);
         }
-    }
 
-    
-    private void EndHarvest()
-    {
+        Time.timeScale = 1.0f;
         animator.SetBool("SkillHarvest", false);
     }
 }

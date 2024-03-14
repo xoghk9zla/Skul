@@ -108,7 +108,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e8ef6ca9943e5a9478adb66879ec9174, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -219,6 +219,7 @@ MonoBehaviour:
   skillAImg: {fileID: 21300000, guid: a1b1e052a6f57364d8bee4044cdc5e4f, type: 3}
   skillSImg: {fileID: 21300000, guid: 4a16da9c3634cfe458746806b4c5fbe4, type: 3}
   damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
+  objInteraction: {fileID: 0}
 --- !u!114 &385017603440427042
 MonoBehaviour:
   m_ObjectHideFlags: 0

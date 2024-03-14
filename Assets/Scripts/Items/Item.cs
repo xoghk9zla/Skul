@@ -52,7 +52,10 @@ public class Item : MonoBehaviour
 
     public void ActionInvoke()
     {
-        prepareAction.Invoke();
+        if(prepareAction != null)
+        {
+            prepareAction.Invoke();
+        }        
     }
 
     public void Interaction()

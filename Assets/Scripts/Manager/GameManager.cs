@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         }
         FollowCamera.Instance.SetPlayer(objPlayer);
         SkillManager.Instance.SetImage(objPlayer);
+        SkillManager.Instance.SetSkill(objPlayer);
     }
 
     public void SwitchSkul()
@@ -92,6 +93,7 @@ public class GameManager : MonoBehaviour
 
             FollowCamera.Instance.SetPlayer(objPlayer);
             SkillManager.Instance.SetImage(objPlayer);
+            SkillManager.Instance.SetSkill(objPlayer);
         }
     }
 
