@@ -178,9 +178,10 @@ public class PlayerAttack : MonoBehaviour
     private float CheckCritical()
     {
         int isCritical = Random.Range(0, 100);
-        float result = attackDamage;
+        float result = attackDamage + attackDamage * ItemStat.Instance.GetAttackDamage();
+        float itemCriticalChance = ItemStat.Instance.GetCritical();
 
-        if (isCritical <= criticalChance)
+        if (isCritical <= criticalChance + itemCriticalChance)
         {
             result *= 1.5f;
         }

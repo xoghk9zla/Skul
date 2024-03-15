@@ -7,7 +7,7 @@ public class Item_BasicCaerleonSword : MonoBehaviour
     private bool isEquip;
     private Item item;
 
-    [SerializeField] InventoryManager.ItemStat stat;
+    float attackDamage = 0.2f;
 
     public bool IsEquip
     {
@@ -35,7 +35,14 @@ public class Item_BasicCaerleonSword : MonoBehaviour
     private void GetIsEquipValue()
     {
         IsEquip = item.IsEquip;
-        InventoryManager.Instance.SetStat(stat);
+        if (!isEquip)
+        {
+            EquipItem();
+        }
     }
 
+    public void EquipItem()
+    {
+        ItemStat.Instance.SetStat(ItemStat.stat.attackDamage, attackDamage);
+    }
 }

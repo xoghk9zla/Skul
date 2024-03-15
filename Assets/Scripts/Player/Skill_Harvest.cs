@@ -104,8 +104,10 @@ public class Skill_Harvest : MonoBehaviour
     {
         foreach (RaycastHit2D enemy in recongnizeBox)
         {
+            float itemStat = skillADamage * ItemStat.Instance.GetSkillDamage();
+
             Enemy Sc = enemy.collider.gameObject.GetComponent<Enemy>();
-            Sc.Hit(skillADamage);
+            Sc.Hit(skillADamage + itemStat);
 
             Vector3 effectPos = Sc.transform.gameObject.GetComponent<BoxCollider2D>().bounds.center;
             effectPos.x += objHarvestHit.transform.gameObject.GetComponent<BoxCollider2D>().size.x / 4 * -Sc.gameObject.transform.localScale.x;

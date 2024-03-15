@@ -68,8 +68,10 @@ public class ThrowBone : MonoBehaviour
 
             if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
+                float itemStat = skillDamage * ItemStat.Instance.GetSkillDamage();
+
                 Enemy Sc = collision.gameObject.GetComponent<Enemy>();
-                Sc.Hit(skillDamage);
+                Sc.Hit(skillDamage + itemStat);
             }
         }
 

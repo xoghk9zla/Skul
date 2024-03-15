@@ -29,9 +29,10 @@ public class GateOfNether : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && canDamage)
         {
+            float itemStat = skillDamage * ItemStat.Instance.GetSkillDamage();
             // canDamage가 collision별로 따로 적용이 안되고 있음
             Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit(skillDamage);
+            Sc.Hit(skillDamage + itemStat);
             canDamage = false;
         }
     }

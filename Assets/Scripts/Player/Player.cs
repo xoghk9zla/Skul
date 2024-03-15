@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private float criticalChance = 10.0f;
     private float skillADamage;
     private float skillSDamage;
+    private float attackSpeed = 1.0f;
 
     private bool isJump = false;
     private bool canJump;
@@ -363,8 +364,11 @@ public class Player : MonoBehaviour
 
     private void SetAnimationParameter()
     {
+        float itemAttackSpeed = ItemStat.Instance.GetAttackSpeed();
+
         animator.SetInteger("Horizontal", (int)moveDir.x);
         animator.SetFloat("Vertical", verticalVelocity);
+        animator.SetFloat("AttackSpeed", attackSpeed + itemAttackSpeed);
         animator.SetBool("IsGround", isGround);
         animator.SetBool("Switch", IsSwitching);
     }
@@ -408,7 +412,7 @@ public class Player : MonoBehaviour
 
         if (_buffType == BuffManager.BuffList.AttackSpeed)
         {
-            animator.SetFloat("AttackSpeed", buffStats.AttackSpeed);
+            attackSpeed += buffStats.AttackSpeed;
         }
         else if (_buffType == BuffManager.BuffList.CriticalChance)
         {

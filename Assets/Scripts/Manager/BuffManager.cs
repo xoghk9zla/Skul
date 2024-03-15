@@ -11,7 +11,7 @@ public class BuffManager : MonoBehaviour
 
     public class BuffStats
     {
-        public float AttackSpeed = 1.3f, Critical = 0.15f, Hp = 50.0f, AttackDamage = 1.3f, SkillDamage = 1.2f;
+        public float AttackSpeed = 0.3f, Critical = 15.0f, Hp = 50.0f, AttackDamage = 1.3f, SkillDamage = 1.2f;
     }
 
 }
