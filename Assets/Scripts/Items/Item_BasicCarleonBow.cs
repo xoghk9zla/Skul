@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_BasicCaerleonSword : MonoBehaviour
+public class Item_BasicCarleonBow : MonoBehaviour
 {
     private bool isEquip;
     private Item item;
 
-    float attackDamage = 0.3f;
+    float critical = 8.0f;
 
     public bool IsEquip
     {
@@ -43,6 +43,6 @@ public class Item_BasicCaerleonSword : MonoBehaviour
 
     public void EquipItem()
     {
-        ItemStat.Instance.SetStat(ItemStat.stat.attackDamage, attackDamage);
+        ItemStat.Instance.SetStat(ItemStat.stat.critical, critical);
     }
 }
