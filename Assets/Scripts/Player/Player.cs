@@ -180,6 +180,7 @@ public class Player : MonoBehaviour
         }
     }
 
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -345,8 +346,8 @@ public class Player : MonoBehaviour
         {
             if(objInteraction.gameObject.layer == LayerMask.NameToLayer("Item"))
             {
-                Item sc = objInteraction.gameObject.GetComponent<Item>();
-                sc.Interaction();
+                Item Sc = objInteraction.gameObject.GetComponent<Item>();
+                Sc.Interaction();
             }
             if (objInteraction.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
