@@ -275,10 +275,29 @@ public class Player : MonoBehaviour
 
     private void Jumping()
     {
-        if (Input.GetKeyDown(KeyCode.C) && canJump)
+        if(Input.GetKeyDown(KeyCode.C) && Input.GetKey(KeyCode.DownArrow))
+        {
+            RaycastHit2D hit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
+
+            if(hit.transform != null)
+            {
+                PlatformEffector2D objStool = hit.transform.gameObject.GetComponent<PlatformEffector2D>();
+                objStool.surfaceArc = 0.0f;
+                Invoke("ResetArc", 0.2f);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.C) && canJump)
         {
             isJump = true;
-        }        
+        }
+        
+    }
+
+    private void ResetArc()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
+        PlatformEffector2D objStool = hit.transform.gameObject.GetComponent<PlatformEffector2D>();
+        objStool.surfaceArc = 180.0f;
     }
 
     private void CheckDash()
