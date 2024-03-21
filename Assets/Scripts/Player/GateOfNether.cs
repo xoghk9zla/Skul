@@ -8,6 +8,8 @@ public class GateOfNether : MonoBehaviour
     private float remainTime = 12.0f;
     private float skillDamage = 15.0f;
     private BoxCollider2D boxcoll;
+    List<Collider2D> damaged = new List<Collider2D>();
+
     public float SkillDamage
     {
         set
@@ -29,11 +31,11 @@ public class GateOfNether : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy") && canDamage)
         {
-            float itemStat = skillDamage * ItemStat.Instance.GetSkillDamage();
+           // float itemStat = skillDamage * ItemStat.Instance.GetSkillDamage();
             // canDamage가 collision별로 따로 적용이 안되고 있음
-            Enemy Sc = collision.GetComponent<Enemy>();
-            Sc.Hit(skillDamage + itemStat);
-            canDamage = false;
+           // Enemy Sc = collision.GetComponent<Enemy>();
+           // Sc.Hit(skillDamage + itemStat);
+           // canDamage = false;
         }
     }
 
@@ -61,7 +63,7 @@ public class GateOfNether : MonoBehaviour
     {
         CheckAttackDelay();
         SetTimer();
-        //tickDamage();
+        tickDamage();
     }
 
     private void CheckAttackDelay()
@@ -91,6 +93,29 @@ public class GateOfNether : MonoBehaviour
     private void tickDamage()
     {
         boxcoll = GetComponent<BoxCollider2D>();
-        Collider2D[] enemys = Physics2D.OverlapBoxAll(boxcoll.bounds.center, boxcoll.bounds.size, 0f, LayerMask.GetMask("Enemy"));
+        Collider2D[] enemys = Physics2D.OverlapBoxAll(boxcoll.bounds.center, boxcoll.bounds.size, 0f, LayerMask.GetMask("Enemy"));        
+
+        foreach (var enemy in enemys)
+        {
+            foreach (var value in damaged)
+            {
+                if(enemy == value)
+                {
+                    return;
+                }
+            }
+
+            float itemStat = skillDamage * ItemStat.Instance.GetSkillDamage();
+            Enemy Sc = enemy.GetComponent<Enemy>();
+            Sc.Hit(skillDamage + itemStat);
+
+            damaged.Add(enemy);
+            Invoke("DeleteList", 1.0f);
+        }        
+    }    
+
+    private void DeleteList()
+    {
+        damaged.RemoveAt(0);
     }
 }
