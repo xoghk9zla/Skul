@@ -282,8 +282,11 @@ public class Player : MonoBehaviour
             if(hit.transform != null)
             {
                 PlatformEffector2D objStool = hit.transform.gameObject.GetComponent<PlatformEffector2D>();
-                objStool.surfaceArc = 0.0f;
-                Invoke("ResetArc", 0.2f);
+                if(objStool != null)
+                {
+                    objStool.surfaceArc = 0.0f;
+                    Invoke("ResetArc", 0.2f);
+                }                
             }
         }
         else if (Input.GetKeyDown(KeyCode.C) && canJump)

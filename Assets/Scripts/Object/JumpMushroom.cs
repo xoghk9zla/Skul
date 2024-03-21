@@ -13,7 +13,9 @@ public class JumpMushroom : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform != null && collision.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
+        Player player = collision.gameObject.GetComponent<Player>();
+
+        if (collision.transform != null && collision.transform.gameObject.layer == LayerMask.NameToLayer("Player") && !player.IsGround)
         {
             animator.SetBool("IsActive", true);
         }
