@@ -374,7 +374,7 @@ public class Player : MonoBehaviour
             if (objInteraction.gameObject.layer == LayerMask.NameToLayer("NPC"))
             {
                 FogWolf Sc = objInteraction.GetComponent<FogWolf>();
-                Sc.GiveBuff(this);
+                Sc.Dialog();
             }
             if (objInteraction.gameObject.layer == LayerMask.NameToLayer("SkulHead"))
             {
