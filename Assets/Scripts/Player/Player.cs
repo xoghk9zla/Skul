@@ -403,7 +403,7 @@ public class Player : MonoBehaviour
 
         if(curHp < 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);            
             GameManager.Instance.GameOver();
         }
 

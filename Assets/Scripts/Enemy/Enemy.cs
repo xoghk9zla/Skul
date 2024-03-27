@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
 
     public enum enumEnemyType
     {
-        ScareCrow, Ent, RootEnt, FlowerEnt, GiganticEnt,
+        ScareCrow, Ent, RootEnt, FlowerEnt, GiganticEnt, Boss
     }
 
     public enumEnemyType enemyType;
