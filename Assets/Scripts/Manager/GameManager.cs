@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     private bool isSwitching;
+
     [SerializeField] GameObject objHead;
 
     public bool IsSwitching
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;    
+        Instance = this;
         player = objPlayer.GetComponent<Player>();
     }
 
@@ -76,26 +77,23 @@ public class GameManager : MonoBehaviour
 
     public void SwitchSkul()
     {
-        if (CheckEmptySkulList() == -1)
-        {
-            listSkul[1].transform.position = objPlayer.transform.position;
-            listSkul[1].transform.localScale = objPlayer.transform.localScale;
+        listSkul[1].transform.position = objPlayer.transform.position;
+        listSkul[1].transform.localScale = objPlayer.transform.localScale;
 
-            GameObject temp = listSkul[0];
-            listSkul[0] = listSkul[1];
-            listSkul[1] = temp;
+        GameObject temp = listSkul[0];
+        listSkul[0] = listSkul[1];
+        listSkul[1] = temp;
 
-            objPlayer.SetActive(false);
+        objPlayer.SetActive(false);
 
-            objPlayer = listSkul[0];
-            objPlayer.SetActive(true);
+        objPlayer = listSkul[0];
+        objPlayer.SetActive(true);
 
-            IsSwitching = true;
+        IsSwitching = true;
 
-            FollowCamera.Instance.SetPlayer(objPlayer);
-            SkillManager.Instance.SetImage(objPlayer);
-            SkillManager.Instance.SetSkill(objPlayer);
-        }
+        FollowCamera.Instance.SetPlayer(objPlayer);
+        SkillManager.Instance.SetImage(objPlayer);
+        SkillManager.Instance.SetSkill(objPlayer);
     }
 
     public GameObject GetPlayerObject()
@@ -105,7 +103,7 @@ public class GameManager : MonoBehaviour
 
     public int CheckEmptySkulList()
     {
-        for(int i = 0; i < listSkul.Length; i++)
+        for (int i = 0; i < listSkul.Length; i++)
         {
             if (listSkul[i] == null)
             {
@@ -125,12 +123,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver()
-    {                
+    {
         StartCoroutine(SetTimeScale());
     }
 
     IEnumerator SetTimeScale()
-    {        
+    {
         Time.timeScale = 0.15f;
 
         GameObject deathPosition = new GameObject();
@@ -138,14 +136,17 @@ public class GameManager : MonoBehaviour
 
         Destroy(objPlayer);
         GameObject head = Instantiate(objHead, objPlayer.transform.position + new Vector3(0.0f, 0.3f), Quaternion.identity);
-        
+
         yield return new WaitForSeconds(0.3f);
-        
+
         Time.timeScale = 0.0f;
 
-        gameoverUI.SetActive(true);
-        
-        FollowCamera.Instance.SetPlayer(deathPosition);
+        {
+            gameoverUI.SetActive(true);
 
+            FollowCamera.Instance.SetPlayer(deathPosition);
+
+            Time.timeScale = 0.0f;
+        }
     }
 }

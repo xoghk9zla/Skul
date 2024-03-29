@@ -33786,7 +33786,6 @@ MonoBehaviour:
   listSkul:
   - {fileID: 0}
   - {fileID: 0}
-  objHead: {fileID: 7573221817883209913, guid: b137e56699fd4644e98b315d637d5610, type: 3}
 --- !u!1001 &1954000241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33838,10 +33837,6 @@ PrefabInstance:
     - target: {fileID: 953421769256101718, guid: 4f3cd7adca0e5424783e574d8c1752ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3977653724261656315, guid: 4f3cd7adca0e5424783e574d8c1752ac, type: 3}
-      propertyPath: maxHp
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8680139306426086448, guid: 4f3cd7adca0e5424783e574d8c1752ac, type: 3}
       propertyPath: m_Name

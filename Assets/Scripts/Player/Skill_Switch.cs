@@ -69,14 +69,16 @@ public class Skill_Switch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space)&& !skillManager.GetActiveSkill(SkillManager.SkillType.Switch))
         {
-            GameManager.Instance.SwitchSkul();
-            skillManager.ActiveSkill(SkillManager.SkillType.Switch);
+            if(GameManager.Instance.CheckEmptySkulList() == -1)
+            {
+                GameManager.Instance.SwitchSkul();
+                skillManager.ActiveSkill(SkillManager.SkillType.Switch);
+            }            
         }
         if (isSwitching)
         {
             player.gameObject.transform.position += Vector3.right * Time.deltaTime * player.transform.localScale.x;
-        }
-        
+        }        
     }
 
     private void StartSwitch()
