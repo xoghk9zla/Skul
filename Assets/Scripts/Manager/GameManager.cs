@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Player player;
 
     private bool isSwitching;
+    [SerializeField] GameObject objHead;
 
     public bool IsSwitching
     {
@@ -124,8 +125,27 @@ public class GameManager : MonoBehaviour
     }
 
     public void GameOver()
-    {
-        gameoverUI.SetActive(true);
+    {                
+        StartCoroutine(SetTimeScale());
+    }
+
+    IEnumerator SetTimeScale()
+    {        
+        Time.timeScale = 0.15f;
+
+        GameObject deathPosition = new GameObject();
+        deathPosition.transform.position = objPlayer.transform.position - new Vector3(1.1f, 0.0f, 0.0f);
+
+        Destroy(objPlayer);
+        GameObject head = Instantiate(objHead, objPlayer.transform.position + new Vector3(0.0f, 0.3f), Quaternion.identity);
+        
+        yield return new WaitForSeconds(0.3f);
+        
         Time.timeScale = 0.0f;
+
+        gameoverUI.SetActive(true);
+        
+        FollowCamera.Instance.SetPlayer(deathPosition);
+
     }
 }

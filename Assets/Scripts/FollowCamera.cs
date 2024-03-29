@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    [SerializeField] private GameObject objPlayer;
+    [SerializeField] private GameObject followObject;
 
     public static FollowCamera Instance;
 
@@ -13,25 +13,25 @@ public class FollowCamera : MonoBehaviour
         Instance = this;
 
         GameManager manager = GameManager.Instance;
-        objPlayer = manager.GetPlayerObject();
+        followObject = manager.GetPlayerObject();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(objPlayer == null)
-        {
+        if(followObject == null)
+        {            
             return;
         }
 
-        Vector3 pos = objPlayer.transform.position;
+        Vector3 pos = followObject.transform.position;
         pos.z -= 2.0f;
         transform.position = pos;
     }
 
-    public void SetPlayer(GameObject _player)
+    public void SetPlayer(GameObject _target)
     {
-        objPlayer = _player;
+        followObject = _target;
     }
 
 }
