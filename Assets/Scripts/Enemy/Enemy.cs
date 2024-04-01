@@ -168,6 +168,10 @@ public class Enemy : MonoBehaviour
 
     private void SetAnimationParameter()
     {
+        if(enemyType == enumEnemyType.Boss)
+        {
+            return;
+        }
         bool IsWalk = moveSpeed != 0.0f ? true : false;
         animator.SetBool("IsWalk", IsWalk);        
     }

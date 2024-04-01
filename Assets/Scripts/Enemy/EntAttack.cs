@@ -44,6 +44,7 @@ public class EntAttack : MonoBehaviour
 
     private Vector3 playerPos;
 
+    /*
     private void OnDrawGizmos()
     {
         RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(0.6f, 0.5f),
@@ -55,7 +56,7 @@ public class EntAttack : MonoBehaviour
         Gizmos.DrawWireCube(pos, new Vector2(0.6f, 0.5f));
 
     }
-
+    */
     public void TriggerEnter(enumColliders _type, Collider2D _collision)
     {
         if (_type == enumColliders.Attack && _collision.gameObject.layer == LayerMask.NameToLayer("Player"))

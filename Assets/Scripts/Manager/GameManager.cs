@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private bool isSwitching;
 
     [SerializeField] GameObject objHead;
+    [SerializeField] Transform trsEffect;
 
     public bool IsSwitching
     {
@@ -135,18 +136,30 @@ public class GameManager : MonoBehaviour
         deathPosition.transform.position = objPlayer.transform.position - new Vector3(1.1f, 0.0f, 0.0f);
 
         Destroy(objPlayer);
-        GameObject head = Instantiate(objHead, objPlayer.transform.position + new Vector3(0.0f, 0.3f), Quaternion.identity);
+        GameObject head = Instantiate(objHead, objPlayer.transform.position + new Vector3(0.0f, 0.3f), Quaternion.identity);      
+        Rigidbody2D rigid = head.GetComponent<Rigidbody2D>();
+        Vector2 dir = new Vector2(Random.Range(-2.0f, 2.0f), Random.Range(0.0f, 2.0f));
+        float rot = Random.Range(-3.0f, 3.0f);
 
-        yield return new WaitForSeconds(0.3f);
+        rigid.AddForce(dir, ForceMode2D.Impulse);
+        rigid.AddTorque(rot);
+
+        yield return new WaitForSeconds(0.15f);
 
         Time.timeScale = 0.0f;
 
+        GameObject objEffect = GameObject.Find("ObjectEffect");
+        trsEffect = objEffect.transform;
+
+        DamageFont[] fonts = trsEffect.GetComponentsInChildren<DamageFont>();
+
+        for(int i = 0; i < fonts.Length; i++)
         {
-            gameoverUI.SetActive(true);
+            fonts[i].gameObject.SetActive(false);
+        }        
+        
+        gameoverUI.SetActive(true);
 
-            FollowCamera.Instance.SetPlayer(deathPosition);
-
-            Time.timeScale = 0.0f;
-        }
+        FollowCamera.Instance.SetPlayer(deathPosition);        
     }
 }

@@ -300,7 +300,7 @@ public class Player : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0.0f, Vector2.down, 0.025f, LayerMask.GetMask("Ground"));
         PlatformEffector2D objStool = hit.transform.gameObject.GetComponent<PlatformEffector2D>();
-        objStool.surfaceArc = 180.0f;
+        objStool.surfaceArc = 160.0f;
     }
 
     private void CheckDash()
@@ -366,6 +366,11 @@ public class Player : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.F))
         {
+            if (objInteraction == null)
+            {
+                return;
+            }
+
             if(objInteraction.gameObject.layer == LayerMask.NameToLayer("Item"))
             {
                 Item Sc = objInteraction.gameObject.GetComponent<Item>();
@@ -380,7 +385,7 @@ public class Player : MonoBehaviour
             {
                 SkulHead Sc = objInteraction.GetComponent<SkulHead>();
                 GameManager.Instance.ChangeSkul(Sc.type, transform);
-                Destroy(objInteraction.gameObject);
+                Destroy(Sc.gameObject);
             }
         }
     }
@@ -403,7 +408,8 @@ public class Player : MonoBehaviour
 
         if(curHp < 0)
         {
-            //Destroy(gameObject);            
+            curHp = 0.0f;
+            playerHp.SetPlayerHp(curHp, maxHp);
             GameManager.Instance.GameOver();
         }
 
