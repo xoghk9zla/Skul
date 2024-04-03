@@ -7,12 +7,13 @@ public class EnergyBall : MonoBehaviour
 {
     private float damage = 7.0f;
     private float bulletSpeed = 2.0f;
+    private float timeToMove = 1.0f;
 
     private Player player;
 
     private void OnDrawGizmos()
     {
-        RaycastHit2D recongnizeRange = Physics2D.CircleCast(transform.position, 0.7f, Vector2.up, 0.4f, LayerMask.GetMask("Player"));
+        RaycastHit2D recongnizeRange = Physics2D.CircleCast(transform.position, 1.0f, Vector2.up, 1.0f, LayerMask.GetMask("Player"));
         
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 0.7f);
@@ -41,24 +42,34 @@ public class EnergyBall : MonoBehaviour
     }
 
     private void Moving()
-    {     
-        RaycastHit2D recongnizeRange = Physics2D.CircleCast(transform.position, 0.7f, Vector2.zero, 0.7f, LayerMask.GetMask("Player"));
-        
-        if(recongnizeRange.transform != null)
+    {
+        RaycastHit2D recongnizeRange = Physics2D.CircleCast(transform.position, 1.0f, Vector2.zero, 1.0f, LayerMask.GetMask("Player"));
+
+        if (recongnizeRange.transform != null)
         {
-            player = recongnizeRange.transform.GetComponent<Player>();            
+            player = recongnizeRange.transform.GetComponent<Player>();
         }
-          
-        if(player != null)
-        {
-            float distance = Mathf.Abs((transform.position - player.transform.position).magnitude);
-            
-            transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * bulletSpeed);
-        }
-        else
+
+        if (timeToMove > 0.0f)
         {
             transform.localPosition += transform.right * Time.deltaTime * bulletSpeed;
         }
+        else
+        {
+            if (player != null)
+            {
+                float distance = Mathf.Abs((transform.position - player.transform.position).magnitude);
+                float rate = Mathf.Clamp(distance, 0.0f, 1.5f);
+
+                transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * bulletSpeed * (2.5f - rate));
+            }
+            else
+            {
+                transform.localPosition += transform.right * Time.deltaTime * bulletSpeed;
+            }
+        }
+
+        timeToMove -= Time.deltaTime;        
     } 
 
 }

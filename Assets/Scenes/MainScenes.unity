@@ -814,6 +814,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &191726082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 191726083}
+  m_Layer: 7
+  m_Name: trsHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &191726083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191726082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.475, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1569307240}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &214439518
 GameObject:
   m_ObjectHideFlags: 0
@@ -4497,9 +4528,10 @@ GameObject:
   - component: {fileID: 1569307240}
   - component: {fileID: 1569307239}
   - component: {fileID: 1569307238}
-  - component: {fileID: 1569307242}
   - component: {fileID: 1569307241}
   - component: {fileID: 1569307243}
+  - component: {fileID: 1569307242}
+  - component: {fileID: 1569307244}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Untagged
@@ -4593,6 +4625,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1004709256}
+  - {fileID: 191726083}
   m_Father: {fileID: 0}
   m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4658,7 +4691,7 @@ MonoBehaviour:
     m_Bits: 64
   checkGround: {fileID: 1004709255}
   isGround: 0
-  maxHp: 0
+  maxHp: 100
   curHp: 0
   moveSpeed: 0
   damageFont: {fileID: 821068541643302278, guid: 71b78505b615c8a4bbfc4e0f719945b4, type: 3}
@@ -4691,6 +4724,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1569307244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569307237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7fb5799884cbb04a878d291f318b8a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackSpeed: 1
+  objEnergyBall: {fileID: 3806244627591656970, guid: a147b0f1ed2b45a4ab5aa3cc9b576258, type: 3}
 --- !u!1 &1606070654
 GameObject:
   m_ObjectHideFlags: 0
