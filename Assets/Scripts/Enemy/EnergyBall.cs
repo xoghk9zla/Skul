@@ -7,9 +7,10 @@ public class EnergyBall : MonoBehaviour
 {
     private float damage = 7.0f;
     private float bulletSpeed = 2.0f;
-    private float timeToMove = 1.0f;
+    private float timeToMove = 0.75f;
 
     private Player player;
+    private Enemy enemy;    
 
     private void OnDrawGizmos()
     {
@@ -52,7 +53,7 @@ public class EnergyBall : MonoBehaviour
 
         if (timeToMove > 0.0f)
         {
-            transform.localPosition += transform.right * Time.deltaTime * bulletSpeed;
+            transform.localPosition += transform.right * Time.deltaTime * bulletSpeed * enemy.transform.localScale.x;
         }
         else
         {
@@ -60,16 +61,21 @@ public class EnergyBall : MonoBehaviour
             {
                 float distance = Mathf.Abs((transform.position - player.transform.position).magnitude);
                 float rate = Mathf.Clamp(distance, 0.0f, 1.5f);
-
+                // 베지에 곡선으로 변경 고려 중
                 transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * bulletSpeed * (2.5f - rate));
+                
             }
             else
-            {
-                transform.localPosition += transform.right * Time.deltaTime * bulletSpeed;
+            {                
+                transform.localPosition += transform.right * Time.deltaTime * bulletSpeed * enemy.transform.localScale.x;
             }
         }
 
         timeToMove -= Time.deltaTime;        
-    } 
+    }
 
+    public void SetEnemy(Enemy _enemy)
+    {
+        enemy = _enemy;
+    }
 }

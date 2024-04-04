@@ -130,13 +130,13 @@ public class Enemy : MonoBehaviour
 
     private void CheckPlayer()
     {
-        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(2.0f, 0.5f),
-            0.0f, Vector2.up, 0.3f, LayerMask.GetMask("Player"));
+        RaycastHit2D recongnizeRange = Physics2D.BoxCast(transform.localPosition, new Vector2(3.0f, 0.5f),
+            0.0f, Vector2.up, 0.5f, LayerMask.GetMask("Player"));
         
         if(recongnizeRange.transform != null && recongnizeRange.transform.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Vector3 dir = recongnizeRange.transform.position - transform.localPosition;
-            if(dir.normalized.x * transform.localScale.x < 0.0f && enemyType != enumEnemyType.ScareCrow && enemyType != enumEnemyType.GiganticEnt && canTurn)
+            if(dir.normalized.x * transform.localScale.x < 0.0f && enemyType != enumEnemyType.ScareCrow && enemyType != enumEnemyType.GiganticEnt && canTurn && !IsAttack)
             {
                 Turn();
                 canTurn = false;

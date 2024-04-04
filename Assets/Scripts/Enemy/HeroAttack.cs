@@ -91,7 +91,7 @@ public class HeroAttack : MonoBehaviour
         {
             IsAttack = true;
             CanAttack = false;
-            animator.SetBool("Skill_EnergyBall", true);
+            animator.SetBool("Skill_EnergyExplosion", true);            
         }
         else if (recongnizeRange.transform != null && canAttack)
         {
@@ -117,17 +117,25 @@ public class HeroAttack : MonoBehaviour
 
     private void Dash()
     {
-
+        animator.SetBool("IsDash", true);
     }
 
     private void StartEnergyBallAttack()
     {
-        Instantiate(objEnergyBall, trsHand.position, Quaternion.identity);        
+        GameObject objEBall = Instantiate(objEnergyBall, trsHand.position, Quaternion.identity);
+        EnergyBall Sc = objEBall.GetComponent<EnergyBall>();
+        Sc.SetEnemy(enemy);
     }
 
     private void EndEnergyBallAttack()
     {
         IsAttack = false;
         animator.SetBool("Skill_EnergyBall", false);
+    }
+
+    private void EndEnergyExplosionAttack()
+    {
+        IsAttack = false;
+        animator.SetBool("Skill_EnergyExplosion", false);
     }
 }
