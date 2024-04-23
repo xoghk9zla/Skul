@@ -233,7 +233,7 @@ public class Enemy : MonoBehaviour
         isHit = false;
         animator.SetBool("IsHit", false);
 
-        if(enemyType != enumEnemyType.ScareCrow)
+        if(enemyType != enumEnemyType.ScareCrow && enemyType != enumEnemyType.Boss)
         {
             IsAttack = false;
             if (prepareAction != null)
@@ -243,6 +243,5 @@ public class Enemy : MonoBehaviour
             //preapreAction?.Invoke();
             animator.SetBool("IsAttack", false);
         }
-        
     }
 }

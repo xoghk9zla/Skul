@@ -32,12 +32,12 @@ public class EnemyHP : MonoBehaviour
     }
 
     private void CheckEnemyPos()
-    {
+    {        
         transform.position = trsEnemy.position - new Vector3(0.0f, 0.05f, 0.0f);
 
         Vector3 hpScale = transform.localScale;
 
-        if(trsEnemy.localScale.x < 0)
+        if (trsEnemy.localScale.x < 0)
         {
             hpScale.x = -Mathf.Abs(hpScale.x);
         }
@@ -45,8 +45,8 @@ public class EnemyHP : MonoBehaviour
         {
             hpScale.x = Mathf.Abs(hpScale.x);
         }
-        
-        transform.localScale = hpScale;
+
+        transform.localScale = hpScale;              
     }
 
     private void CheckEnemyHp()
