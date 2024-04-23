@@ -40,6 +40,8 @@ public class HeroAttack : MonoBehaviour
     [SerializeField] GameObject objEnergyBall;
     private Transform trsHand;
 
+    [SerializeField] GameObject objEnergyBlast;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -125,6 +127,15 @@ public class HeroAttack : MonoBehaviour
         GameObject objEBall = Instantiate(objEnergyBall, trsHand.position, Quaternion.identity);
         EnergyBall Sc = objEBall.GetComponent<EnergyBall>();
         Sc.SetEnemy(enemy);
+    }
+
+    private void StartEnergyExplosionAttack()
+    {
+        BoxCollider2D hitbox = enemy.GetComponent<BoxCollider2D>();
+        Vector3 pos = transform.position;
+        pos.y -= hitbox.bounds.size.y / 2;
+
+        GameObject objEBlast = Instantiate(objEnergyBlast, pos, Quaternion.identity);
     }
 
     private void EndEnergyBallAttack()

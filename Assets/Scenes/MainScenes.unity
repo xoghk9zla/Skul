@@ -4841,6 +4841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackSpeed: 3
   objEnergyBall: {fileID: 3806244627591656970, guid: a147b0f1ed2b45a4ab5aa3cc9b576258, type: 3}
+  objEnergyBlast: {fileID: 6725775552817285226, guid: 4737ae15d93b5764ebe74b5b4de3e3d2, type: 3}
 --- !u!1 &1606070654
 GameObject:
   m_ObjectHideFlags: 0

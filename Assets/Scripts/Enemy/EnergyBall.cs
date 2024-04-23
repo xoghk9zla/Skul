@@ -22,7 +22,7 @@ public class EnergyBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (collision != null && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             Player Sc = collision.GetComponent<Player>();
             Sc.Hit(damage);
@@ -62,8 +62,7 @@ public class EnergyBall : MonoBehaviour
                 float distance = Mathf.Abs((transform.position - player.transform.position).magnitude);
                 float rate = Mathf.Clamp(distance, 0.0f, 1.5f);
                 // 베지에 곡선으로 변경 고려 중
-                transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * bulletSpeed * (2.5f - rate));
-                
+                transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * bulletSpeed * (2.5f - rate));                
             }
             else
             {                
