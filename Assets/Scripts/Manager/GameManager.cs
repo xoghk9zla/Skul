@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject objHead;
     [SerializeField] Transform trsEffect;
 
+    [SerializeField] private GameObject objEndingText;
+
     public bool IsSwitching
     {
         set
@@ -161,5 +163,21 @@ public class GameManager : MonoBehaviour
         gameoverUI.SetActive(true);
 
         FollowCamera.Instance.SetPlayer(deathPosition);        
+    }
+
+    public void GameEnding()
+    {
+        objEndingText.SetActive(true);
+
+        StartCoroutine(EndingProduction());
+    }
+
+    IEnumerator EndingProduction()
+    {
+        while (objEndingText.transform.position.y > 0.0f)
+        {
+            objEndingText.transform.position -= new Vector3(0.0f, 2.0f, 0.0f);
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }

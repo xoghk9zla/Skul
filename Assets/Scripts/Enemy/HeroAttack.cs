@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HeroAttack : MonoBehaviour
@@ -93,13 +94,25 @@ public class HeroAttack : MonoBehaviour
         {
             IsAttack = true;
             CanAttack = false;
+            animator.SetBool("IsDash", false);
             animator.SetBool("Skill_EnergyExplosion", true);            
         }
         else if (recongnizeRange.transform != null && canAttack)
         {
             IsAttack = true;
             CanAttack = false;
+            animator.SetBool("IsDash", false);
             animator.SetBool("Skill_EnergyBall", true);
+        }
+        else if(recongnizeBox.transform == null && recongnizeRange.transform == null && canAttack)
+        {
+            var height = Camera.main.orthographicSize / 2;
+            var width = height * Camera.main.aspect;
+
+            RaycastHit2D recongnize = Physics2D.BoxCast(Camera.main.gameObject.transform.position, new Vector2(width, height), 0.0f, Vector2.down, 0.8f, LayerMask.GetMask("Player"));
+            transform.position = Vector3.Lerp(transform.position, recongnize.transform.position, 0.01f);            
+            
+            animator.SetBool("IsDash", true);
         }
     }
 

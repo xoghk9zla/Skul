@@ -214,6 +214,11 @@ public class Enemy : MonoBehaviour
 
     private void Death()
     {
+        if(enemyType == enumEnemyType.Boss)
+        {
+            GameManager.Instance.GameEnding();
+        }
+
         foreach(var part in parts)
         {
             Instantiate(part, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
