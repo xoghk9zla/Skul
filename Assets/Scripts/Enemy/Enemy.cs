@@ -31,6 +31,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject[] parts;
 
+    [SerializeField] private float dropRate = 0.2f;
+    [SerializeField] private GameObject[] objItems;
+    [SerializeField] private Transform trsObjItem;
+
     // property 변수
     public bool IsAttack
     {
@@ -71,6 +75,9 @@ public class Enemy : MonoBehaviour
 
         GameObject objEffect = GameObject.Find("ObjectEffect");
         trsObjEffect = objEffect.transform;
+
+        GameObject objItem = GameObject.Find("ObjectItem");
+        trsObjItem = objItem.transform;
 
         curHp = maxHp;
     }
@@ -223,6 +230,20 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(part, hitBox.bounds.center, Quaternion.identity, trsObjEffect);
         }
+
+        if(enemyType != enumEnemyType.Boss)
+        {
+            // 아이템 드랍
+            float isDropItem = Random.Range(0.0f, 1.0f);
+
+            if (isDropItem <= dropRate)
+            {
+                int range = objItems.Length;
+                int selectItem = Random.Range(0, range - 1);
+
+                Instantiate(objItems[selectItem], transform.position + hitBox.bounds.size / 2, Quaternion.identity, trsObjItem);
+            }
+        }        
 
         Destroy(gameObject);
     }

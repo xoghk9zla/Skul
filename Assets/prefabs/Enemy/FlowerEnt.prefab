@@ -523,7 +523,7 @@ Transform:
   - {fileID: 7704691169959075508}
   - {fileID: 7146432744083614712}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8537748656517981305
 SpriteRenderer:
@@ -699,6 +699,13 @@ MonoBehaviour:
   - {fileID: 3249447046021320844, guid: f352ca73a4897694fa72eac910a9392a, type: 3}
   - {fileID: 5258508659624954110, guid: 2b2ef497d2e50d44fa4e9096554d9009, type: 3}
   - {fileID: 6558726988163885910, guid: 4d9cc18124697ed459bcf7ac2bde571f, type: 3}
+  dropRate: 0.2
+  objItems:
+  - {fileID: 1813956634607964971, guid: 904f1e0c6c3dff244a8e91615dd74af4, type: 3}
+  - {fileID: 7392521762186159381, guid: b42a157f91d9f2f43951b1173bb2697b, type: 3}
+  - {fileID: 8137982665068825838, guid: 612e1c4204806254282e36a259493ef8, type: 3}
+  - {fileID: 1467492221741650251, guid: 17c3ffc5f5d7fff4196d05a756690c78, type: 3}
+  trsObjItem: {fileID: 0}
   enemyType: 3
 --- !u!114 &4591288467037860289
 MonoBehaviour:
